@@ -8,10 +8,10 @@
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Inter and Rajdhani -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
 
     <style>
         /* Set the default font for the page */
@@ -55,9 +55,15 @@
             animation: pulse-glow 6s infinite ease-in-out;
         }
 
-        /* Adding a glow effect to the main title */
-        .text-glow {
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3), 0 0 15px rgba(0, 180, 255, 0.4);
+        /* Sleek, modern text style for the title */
+        .modern-title {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(90deg, #cce7ff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3), 0 0 25px rgba(0, 180, 255, 0.4);
         }
     </style>
 </head>
@@ -73,7 +79,7 @@
             <div class="w-full md:w-5/12 flex-shrink-0">
                 <img 
                     src="https://japplications-lab.github.io/jbeck/Elements/Images/wave.png" 
-                    alt="Well Hey There!" 
+                    alt="A person waving" 
                     class="rounded-xl w-full h-auto shadow-lg"
                     onerror="this.onerror=null;this.src='https://placehold.co/600x600/17213a/ffffff?text=Image+Not+Found';"
                 >
@@ -81,7 +87,7 @@
             
             <!-- Right Side: Content -->
             <div class="space-y-4 text-center md:text-left">
-                <h1 class="text-glow text-3xl md:text-4xl font-bold text-white">jbeck.net</h1>
+                <h1 class="modern-title text-4xl md:text-5xl font-bold">jbeck.net</h1>
                 <p class="text-lg md:text-xl text-gray-300">
                     My little corner of the internet for AI experiments. Things might break. Or become self-aware. Probably a 50/50 shot.
                 </p>
