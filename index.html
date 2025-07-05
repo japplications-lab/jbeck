@@ -106,15 +106,15 @@
                 <p class="text-gray-400 text-sm">
                     Have a question or a rogue AI to report? Drop me a line.
                 </p>
-                <!-- Contact Form -->
-                <form id="contactForm" class="pt-4 space-y-4">
+                <!-- Contact Form with Formspree Integration -->
+                <form id="contactForm" action="https://formspree.io/f/mrbkvezd" method="POST" class="pt-4 space-y-4">
                     <input type="text" name="name" placeholder="Your Name" class="form-input w-full p-3 rounded-lg transition-all duration-300" required>
                     <input type="email" name="email" placeholder="Your Email" class="form-input w-full p-3 rounded-lg transition-all duration-300" required>
                     <textarea name="message" placeholder="Your Message" rows="4" class="form-input w-full p-3 rounded-lg transition-all duration-300" required></textarea>
                     <button type="submit" class="w-full bg-cyan-500 hover:bg-cyan-400 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-cyan-400/50">
-                        Send Transmission
+                        Release the Carrier Pigeon
                     </button>
-                    <p id="form-message" class="text-sm text-green-400 h-4"></p>
+                    <p id="form-message" class="text-sm h-4"></p>
                 </form>
             </div>
 
@@ -123,25 +123,42 @@
     </main>
     
     <script>
-        // A simple script to handle form submission and show a message
-        // For a real-world application, you would replace this with a call to a backend service
-        const form = document.getElementById('contactForm');
-        const formMessage = document.getElementById('form-message');
-
-        form.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission
+        // Script to handle Formspree submission with AJAX to prevent page redirect
+        var form = document.getElementById("contactForm");
+        var formMessage = document.getElementById("form-message");
+    
+        async function handleSubmit(event) {
+            event.preventDefault();
+            var status = document.getElementById("form-message");
+            var data = new FormData(event.target);
             
-            // Show a success message
-            formMessage.textContent = 'Message sent! (Not really, but thanks for trying!)';
-            
-            // Clear the message after a few seconds
-            setTimeout(() => {
-                formMessage.textContent = '';
-            }, 5000);
-
-            // Optionally, you can clear the form fields
-            form.reset();
-        });
+            fetch(event.target.action, {
+                method: form.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    status.innerHTML = "Thanks for your submission!";
+                    status.className = 'text-sm text-green-400 h-4';
+                    form.reset();
+                } else {
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                        } else {
+                            status.innerHTML = "Oops! There was a problem submitting your form";
+                        }
+                        status.className = 'text-sm text-red-400 h-4';
+                    })
+                }
+            }).catch(error => {
+                status.innerHTML = "Oops! There was a problem submitting your form";
+                status.className = 'text-sm text-red-400 h-4';
+            });
+        }
+        form.addEventListener("submit", handleSubmit)
     </script>
 
 </body>
