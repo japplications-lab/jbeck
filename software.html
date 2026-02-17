@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software - jbeck.net</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0e17;
+            --bg-card: #141824;
+            --border: #1e2330;
+            --border-glow: #2a3244;
+            --accent-green: #00ff88;
+            --accent-green-dim: #00cc6f;
+            --accent-orange: #ff8800;
+            --text-primary: #e8ecf4;
+            --text-secondary: #8b95a8;
+            --text-muted: #4a5568;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.3;
+            z-index: -1;
+            animation: gridShift 20s linear infinite;
+        }
+
+        @keyframes gridShift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--accent-green);
+            top: -200px;
+            right: -200px;
+            animation: float1 25s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--accent-green);
+            bottom: -150px;
+            left: -150px;
+            animation: float2 20s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-100px, 100px) scale(1.1); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(100px, -100px) scale(1.15); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .site-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            color: var(--accent-green);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            text-shadow: 0 0 40px rgba(0, 255, 136, 0.3);
+        }
+
+        .site-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+
+        .breadcrumb {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+        }
+
+        .breadcrumb a {
+            color: var(--accent-green);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent-green-dim);
+        }
+
+        .breadcrumb-sep {
+            color: var(--border-glow);
+        }
+
+        .software-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .software-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 0.6s ease-out backwards;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .software-card:nth-child(1) { animation-delay: 0.1s; }
+        .software-card:nth-child(2) { animation-delay: 0.2s; }
+        .software-card:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .software-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent-green);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .software-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.15);
+        }
+
+        .software-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 255, 136, 0.05));
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 24px;
+            transition: transform 0.4s;
+        }
+
+        .software-card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .card-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .card-tagline {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .card-features {
+            list-style: none;
+            margin-bottom: 28px;
+            flex-grow: 1;
+        }
+
+        .card-features li {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            padding: 6px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .card-features li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+        }
+
+        .card-footer {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent-green);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid var(--border-glow);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent-green);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .status-live {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent-green);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .status-beta {
+            background: rgba(255, 136, 0, 0.1);
+            color: var(--accent-orange);
+            border: 1px solid rgba(255, 136, 0, 0.3);
+        }
+
+        .status-soon {
+            background: rgba(139, 149, 168, 0.1);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-glow);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .status-live .status-dot {
+            background: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green);
+        }
+
+        .status-beta .status-dot {
+            background: var(--accent-orange);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .software-card.featured {
+            grid-column: span 2;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.08), rgba(0, 255, 136, 0.03));
+            border-color: var(--border-glow);
+        }
+
+        @media (max-width: 1200px) {
+            .software-card.featured { grid-column: span 1; }
+        }
+
+        @media (max-width: 768px) {
+            .software-grid { grid-template-columns: 1fr; }
+            .container { padding: 40px 20px; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+
+        footer a {
+            color: var(--accent-green);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--accent-green-dim);
+        }
+    </style>
+</head>
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container">
+        <header>
+            <h1 class="site-title">jbeck.net</h1>
+            <p class="site-subtitle">Software & AI Experiments</p>
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span class="breadcrumb-sep">/</span>
+                <span>Software</span>
+            </nav>
+        </header>
+
+        <div class="software-grid">
+            <article class="software-card featured">
+                <span class="status-badge status-live">
+                    <span class="status-dot"></span>
+                    Live
+                </span>
+                <div class="card-icon">🖱️</div>
+                <h2 class="card-title">jMouse</h2>
+                <p class="card-tagline">Keep your system awake and stay active. A modern mouse jiggler with scheduling capabilities and dark-themed UI.</p>
+                <ul class="card-features">
+                    <li>Subtle mouse movements + F15 keypresses every 60s</li>
+                    <li>Scheduled auto-disable at custom end time</li>
+                    <li>System tray integration with notifications</li>
+                    <li>Standalone .exe — zero Python installation required</li>
+                    <li>Built with CustomTkinter, PyAutoGUI, pystray</li>
+                </ul>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary">Download v1.0.0</a>
+                    <a href="#" class="btn btn-secondary">View Source</a>
+                </div>
+            </article>
+
+            <article class="software-card">
+                <span class="status-badge status-soon">
+                    <span class="status-dot"></span>
+                    Coming Soon
+                </span>
+                <div class="card-icon">🚀</div>
+                <h2 class="card-title">Project Alpha</h2>
+                <p class="card-tagline">An upcoming tool currently in stealth mode. Stay tuned for the reveal.</p>
+                <ul class="card-features">
+                    <li>Under active development</li>
+                    <li>AI-powered automation</li>
+                    <li>Expected Q2 2025</li>
+                </ul>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-secondary">Notify Me</a>
+                </div>
+            </article>
+
+            <article class="software-card">
+                <span class="status-badge status-beta">
+                    <span class="status-dot"></span>
+                    Beta
+                </span>
+                <div class="card-icon">⚡</div>
+                <h2 class="card-title">Project Beta</h2>
+                <p class="card-tagline">Early access to the next experimental tool. Bugs are features here.</p>
+                <ul class="card-features">
+                    <li>Public beta testing phase</li>
+                    <li>Feedback welcomed</li>
+                    <li>Rapidly evolving</li>
+                </ul>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary">Try Beta</a>
+                    <a href="#" class="btn btn-secondary">Report Issue</a>
+                </div>
+            </article>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 <a href="index.html">jbeck.net</a> · All software provided as-is · Use responsibly</p>
+        </footer>
+    </div>
+</body>
+</html>

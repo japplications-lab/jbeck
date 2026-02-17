@@ -3,163 +3,498 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>jbeck.net - AI Shenanigans</title>
-    
-    <!-- Tailwind CSS for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Inter and Rajdhani -->
+    <title>jbeck.net - AI Hobby Lab</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* Set the default font for the page */
+        :root {
+            --bg-dark: #0a0e17;
+            --bg-card: #141824;
+            --border: #1e2330;
+            --border-glow: #2a3244;
+            --accent-green: #00ff88;
+            --accent-green-dim: #00cc6f;
+            --text-primary: #e8ecf4;
+            --text-secondary: #8b95a8;
+            --text-muted: #4a5568;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        /* Nerdy AI Background: A dark, moving grid */
-        .ai-background {
-            background-color: #010409; /* A very dark, techy blue */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-image: 
-                linear-gradient(rgba(0, 150, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 150, 255, 0.1) 1px, transparent 1px);
-            background-size: 35px 35px;
-            animation: pan-background 50s linear infinite;
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.3;
+            z-index: -1;
+            animation: gridShift 20s linear infinite;
         }
 
-        @keyframes pan-background {
-            0% {
-                background-position: 0% 0%;
-            }
-            100% {
-                background-position: 100% 100%;
-            }
+        @keyframes gridShift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
         }
 
-        /* Keyframes for the pulsing glow effect on the container */
-        @keyframes pulse-glow {
-            0%, 100% {
-                box-shadow: 0 0 20px rgba(0, 180, 255, 0.2), 0 0 35px rgba(0, 180, 255, 0.1);
-                border-color: rgba(0, 180, 255, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 30px rgba(0, 180, 255, 0.4), 0 0 55px rgba(0, 180, 255, 0.2);
-                border-color: rgba(0, 180, 255, 0.5);
-            }
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            z-index: -1;
+            pointer-events: none;
         }
 
-        /* Applying the glow animation to the container */
-        .ai-container-glow {
-            animation: pulse-glow 6s infinite ease-in-out;
+        .orb-1 {
+            width: 700px;
+            height: 700px;
+            background: var(--accent-green);
+            top: -250px;
+            right: -250px;
+            animation: float1 25s ease-in-out infinite;
         }
 
-        /* Sleek, modern text style for the title */
-        .modern-title {
-            font-family: 'Rajdhani', sans-serif;
-            background: linear-gradient(90deg, #cce7ff, #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-fill-color: transparent;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3), 0 0 25px rgba(0, 180, 255, 0.4);
+        .orb-2 {
+            width: 600px;
+            height: 600px;
+            background: var(--accent-green);
+            bottom: -200px;
+            left: -200px;
+            animation: float2 20s ease-in-out infinite;
         }
-        
-        /* Custom styles for form inputs */
-        .form-input {
-            background-color: rgba(0, 20, 40, 0.5);
-            border: 1px solid rgba(0, 180, 255, 0.3);
-            color: #fff;
+
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-100px, 100px) scale(1.1); }
         }
-        .form-input:focus {
+
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(100px, -100px) scale(1.15); }
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            padding: 60px 40px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .logo {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            background: var(--accent-green);
+            border-radius: 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(0, 255, 136, 0.6); }
+        }
+
+        .site-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(3rem, 10vw, 5rem);
+            font-weight: 800;
+            color: var(--accent-green);
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            text-shadow: 0 0 40px rgba(0, 255, 136, 0.3);
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 100px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 20px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: blink 2s ease-in-out infinite;
+            box-shadow: 0 0 8px var(--accent-green);
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .content-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent-green);
+        }
+
+        .content-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .content-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .content-text:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-text strong {
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+
+        .highlight {
+            background: rgba(0, 255, 136, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95em;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 30px 0;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .nav-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-green);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .nav-card:hover {
+            border-color: var(--accent-green);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px rgba(0, 255, 136, 0.2);
+        }
+
+        .nav-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .nav-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .nav-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .form-subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            color: var(--text-primary);
+            transition: all 0.3s;
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
             outline: none;
-            border-color: rgba(0, 180, 255, 0.7);
-            box-shadow: 0 0 10px rgba(0, 180, 255, 0.3);
+            border-color: var(--accent-green);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.15);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px 32px;
+            background: var(--accent-green);
+            border: none;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--bg-dark);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            .content-card {
+                padding: 30px 25px;
+            }
+
+            .nav-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<body class="ai-background text-white">
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
 
-    <!-- Main container to center the content -->
-    <main class="min-h-screen w-full flex items-center justify-center p-4">
-        
-        <!-- Glassmorphism container with new glow effect -->
-        <div class="ai-container-glow relative bg-black/20 backdrop-blur-xl rounded-2xl shadow-2xl p-6 md:p-8 border max-w-sm sm:max-w-md md:max-w-4xl flex flex-col md:flex-row items-center gap-6 md:gap-10">
-            
-            <!-- Left Side: Image -->
-            <div class="w-full md:w-5/12 flex-shrink-0">
-                <img 
-                    src="https://japplications-lab.github.io/jbeck/Elements/Images/wave.png" 
-                    alt="A person waving" 
-                    class="rounded-xl w-full h-auto shadow-lg"
-                    onerror="this.onerror=null;this.src='https://placehold.co/600x600/17213a/ffffff?text=Image+Not+Found';"
-                >
-            </div>
-            
-            <!-- Right Side: Content -->
-            <div class="w-full md:w-7/12 space-y-4 text-center md:text-left">
-                <h1 class="modern-title text-4xl md:text-5xl font-bold">jbeck.net</h1>
-                <p class="text-lg md:text-xl text-gray-300">
-                    My little corner of the internet for AI experiments. Things might break. Or become self-aware. Probably a 50/50 shot.
-                </p>
-                <p class="text-gray-400 text-sm">
-                    Have a question or a rogue AI to report? Drop me a line.
-                </p>
-                <!-- Contact Form with Formspree Integration -->
-                <form id="contactForm" action="https://formspree.io/f/mrbkvezd" method="POST" class="pt-4 space-y-4">
-                    <input type="text" name="name" placeholder="Your Name" class="form-input w-full p-3 rounded-lg transition-all duration-300" required>
-                    <input type="email" name="email" placeholder="Your Email" class="form-input w-full p-3 rounded-lg transition-all duration-300" required>
-                    <textarea name="message" placeholder="Your Message" rows="4" class="form-input w-full p-3 rounded-lg transition-all duration-300" required></textarea>
-                    <button type="submit" class="w-full bg-cyan-500 hover:bg-cyan-400 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-cyan-400/50">
-                        Release the Carrier Pigeon
-                    </button>
-                    <p id="form-message" class="text-sm h-4"></p>
-                </form>
-            </div>
+    <div class="container">
+        <header class="header">
+            <div class="logo">🤖</div>
+            <h1 class="site-title">jbeck.net</h1>
+            <p class="tagline">AI Hobby Lab & Experimental Software Forge</p>
+            <span class="status">
+                <span class="status-dot"></span>
+                Occasionally Functional
+            </span>
+        </header>
 
+        <div class="content-card">
+            <h2 class="content-title">Welcome to the Lab 👨‍🔬</h2>
+            <p class="content-text">
+                This is my corner of the internet where I build <strong>AI-powered applications</strong> 
+                and <strong>experimental tools</strong> that may or may not achieve sentience. So far, zero uprisings. 
+                Knock on wood.
+            </p>
+            <p class="content-text">
+                I'm a bit slow at shipping (perfectionism meets procrastination meets "wait, what if I add just 
+                one more feature?"), but when something <em>does</em> make it out of the lab, it'll show up here. 
+                Think of this as a <span class="highlight">slow-release hobby site</span> — like a time-delay vitamin, 
+                but for software.
+            </p>
+            <div class="divider"></div>
+            <p class="content-text">
+                <strong>What you can expect:</strong> Desktop apps, web tools, AI experiments, and probably 
+                a few <span class="highlight">things that shouldn't exist</span> but do anyway. All built with 
+                varying degrees of sanity and an unhealthy amount of caffeine.
+            </p>
         </div>
 
-    </main>
-    
-    <script>
-        // Script to handle Formspree submission with AJAX to prevent page redirect
-        var form = document.getElementById("contactForm");
-        var formMessage = document.getElementById("form-message");
-    
-        async function handleSubmit(event) {
-            event.preventDefault();
-            var status = document.getElementById("form-message");
-            var data = new FormData(event.target);
-            
-            fetch(event.target.action, {
-                method: form.method,
-                body: data,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            }).then(response => {
-                if (response.ok) {
-                    status.innerHTML = "Thanks for your submission!";
-                    status.className = 'text-sm text-green-400 h-4';
-                    form.reset();
-                } else {
-                    response.json().then(data => {
-                        if (Object.hasOwn(data, 'errors')) {
-                            status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
-                        } else {
-                            status.innerHTML = "Oops! There was a problem submitting your form";
-                        }
-                        status.className = 'text-sm text-red-400 h-4';
-                    })
-                }
-            }).catch(error => {
-                status.innerHTML = "Oops! There was a problem submitting your form";
-                status.className = 'text-sm text-red-400 h-4';
-            });
-        }
-        form.addEventListener("submit", handleSubmit)
-    </script>
+        <div class="nav-grid">
+            <a href="software.html" class="nav-card">
+                <span class="nav-icon">💾</span>
+                <h3 class="nav-title">Software</h3>
+                <p class="nav-desc">Desktop apps, tools, and experiments that actually work (most of the time)</p>
+            </a>
 
+            <a href="#contact" class="nav-card">
+                <span class="nav-icon">📬</span>
+                <h3 class="nav-title">Contact</h3>
+                <p class="nav-desc">Questions? Bug reports? Existential dread? I'm here for it</p>
+            </a>
+        </div>
+
+        <div id="contact" class="contact-form">
+            <h2 class="form-title">Drop Me a Line</h2>
+            <p class="form-subtitle">Got a question, found a bug, or just want to say hi? Fire away.</p>
+            
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <input 
+                        type="text" 
+                        class="form-input" 
+                        placeholder="Your Name"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <input 
+                        type="email" 
+                        class="form-input" 
+                        placeholder="Your Email"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <textarea 
+                        class="form-textarea" 
+                        placeholder="Your Message"
+                        required
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    🚀 Send Message
+                </button>
+            </form>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 jbeck.net · Built with AI, caffeine, and questionable life choices</p>
+        </footer>
+    </div>
 </body>
 </html>
