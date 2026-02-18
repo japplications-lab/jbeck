@@ -499,5 +499,55 @@
             <p>&copy; 2025 jbeck.net · Built with AI, caffeine, and questionable life choices</p>
         </footer>
     </div>
+
+    <script>
+        // AJAX form submission to prevent redirect to Formspree
+        const form = document.querySelector('.contact-form form');
+        const submitBtn = form.querySelector('.submit-btn');
+        
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Disable button and show loading state
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = '📤 Sending...';
+            submitBtn.disabled = true;
+            
+            // Get form data
+            const formData = new FormData(form);
+            
+            try {
+                // Submit to Formspree
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    // Success - show confirmation
+                    form.innerHTML = `
+                        <div style="text-align: center; padding: 60px 20px;">
+                            <div style="font-size: 4rem; margin-bottom: 20px;">✅</div>
+                            <h3 style="font-size: 1.5rem; color: var(--accent-green); margin-bottom: 12px;">Message Sent!</h3>
+                            <p style="color: var(--text-secondary); font-size: 1.1rem;">Thanks for reaching out. I'll get back to you soon.</p>
+                        </div>
+                    `;
+                } else {
+                    // Error from Formspree
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                // Show error message
+                submitBtn.textContent = '❌ Failed - Try Again';
+                submitBtn.disabled = false;
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                }, 3000);
+            }
+        });
+    </script>
 </body>
 </html>
