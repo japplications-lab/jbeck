@@ -308,6 +308,17 @@
             padding: 40px;
         }
 
+        .google-form-container {
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .google-form-container iframe {
+            border-radius: 12px;
+        }
+
         .form-title {
             font-size: 1.5rem;
             font-weight: 700;
@@ -478,95 +489,14 @@
             <h2 class="form-title">Drop Me a Line</h2>
             <p class="form-subtitle">Got a question, found a bug, or just want to say hi? Fire away.</p>
             
-            <form action="https://formspree.io/f/xjgeovln" method="POST">
-                <div class="form-group">
-                    <input 
-                        type="text" 
-                        name="name"
-                        class="form-input" 
-                        placeholder="Your Name"
-                        required
-                    >
-                </div>
-
-                <div class="form-group">
-                    <input 
-                        type="email" 
-                        name="email"
-                        class="form-input" 
-                        placeholder="Your Email"
-                        required
-                    >
-                </div>
-
-                <div class="form-group">
-                    <textarea 
-                        name="message"
-                        class="form-textarea" 
-                        placeholder="Your Message"
-                        required
-                    ></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn">
-                    🚀 Send Message
-                </button>
-            </form>
+            <div class="google-form-container">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSed2hLK7BOXFnJVgiZ0xPuHZHb0RLh0b2H-tI9llQKuTYesuw/viewform?embedded=true" width="100%" height="675" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
         </div>
 
         <footer>
             <p>&copy; 2025 jbeck.app · Built with AI, caffeine, and questionable life choices</p>
         </footer>
     </div>
-
-    <script>
-        // AJAX form submission to prevent redirect to Formspree
-        const form = document.querySelector('.contact-form form');
-        const submitBtn = form.querySelector('.submit-btn');
-        
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            // Disable button and show loading state
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = '📤 Sending...';
-            submitBtn.disabled = true;
-            
-            // Get form data
-            const formData = new FormData(form);
-            
-            try {
-                // Submit to Formspree
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    // Success - show confirmation
-                    form.innerHTML = `
-                        <div style="text-align: center; padding: 60px 20px;">
-                            <div style="font-size: 4rem; margin-bottom: 20px;">✅</div>
-                            <h3 style="font-size: 1.5rem; color: var(--accent-green); margin-bottom: 12px;">Message Sent!</h3>
-                            <p style="color: var(--text-secondary); font-size: 1.1rem;">Thanks for reaching out. I'll get back to you soon.</p>
-                        </div>
-                    `;
-                } else {
-                    // Error from Formspree
-                    throw new Error('Form submission failed');
-                }
-            } catch (error) {
-                // Show error message
-                submitBtn.textContent = '❌ Failed - Try Again';
-                submitBtn.disabled = false;
-                setTimeout(() => {
-                    submitBtn.textContent = originalText;
-                }, 3000);
-            }
-        });
-    </script>
 </body>
 </html>
