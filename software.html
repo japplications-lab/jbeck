@@ -196,11 +196,11 @@
         .card-footer { display: flex; gap: 12px; margin-top: auto; flex-wrap: wrap; }
         .btn {
             flex: 1;
-            min-width: 100px;
-            padding: 14px 16px;
+            min-width: 90px;
+            padding: 14px 12px;
             border-radius: 10px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
             text-decoration: none;
             text-align: center;
@@ -469,9 +469,10 @@
                     <li>Built with CustomTkinter, PyAutoGUI, pystray</li>
                 </ul>
                 <div class="card-footer">
-                    <a href="https://github.com/japplications-lab/jbeck/raw/main/jmouse_app/dist/jMouse.exe" class="btn btn-primary" download>Download v1.0.0</a>
+                    <a href="https://github.com/japplications-lab/jbeck/raw/main/jmouse_app/dist/jMouse.exe" class="btn btn-primary" download>Download v1.0.1</a>
                     <a href="jmouse_app/GUIDE.html" class="btn btn-secondary">Guide</a>
                     <a href="jmouse_app/FAQ.html" class="btn btn-secondary">FAQ</a>
+                    <button class="btn btn-secondary" onclick="openChangelogModal()">Changelog</button>
                     <button class="btn btn-secondary" onclick="openTCModal()">Terms</button>
                 </div>
             </article>
@@ -645,6 +646,57 @@
         </div>
     </div>
 
+    <!-- Changelog Modal -->
+    <div class="modal-overlay" id="changelogModal" onclick="closeChangelogModalClick(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2 class="modal-title">jMouse • Changelog</h2>
+                <p class="modal-subtitle">Version History & Updates</p>
+            </div>
+
+            <div class="modal-content">
+                <!-- v1.0.1 -->
+                <div class="modal-section">
+                    <h3 class="section-title" style="color: var(--accent-green);">v1.0.1 — February 2025</h3>
+                    <div class="tech-list">
+                        <div class="tech-item">
+                            <div class="tech-name">Bug Fixes</div>
+                            <div class="tech-desc">• Fixed: Minimize notification no longer repeats on every minimize to tray<br>• Notification now only shows once per session</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-name">New Features</div>
+                            <div class="tech-desc">• Added: About & Changelog dialog in application</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- v1.0.0 -->
+                <div class="modal-section">
+                    <h3 class="section-title" style="color: var(--accent-green);">v1.0.0 — February 2025</h3>
+                    <div class="tech-list">
+                        <div class="tech-item">
+                            <div class="tech-name">Initial Release</div>
+                            <div class="tech-desc">
+                                • 60-second activity simulation with F15 + mouse movements<br>
+                                • Scheduled end time with auto-disable<br>
+                                • System tray integration with notifications<br>
+                                • Dark-themed modern UI<br>
+                                • Standalone .exe with bundled Python runtime<br>
+                                • Built with CustomTkinter, PyAutoGUI, pystray
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="modal-close-btn" onclick="closeChangelogModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         function openTCModal() {
             document.getElementById('tcModal').classList.add('active');
@@ -657,9 +709,25 @@
         function closeModal(event) {
             if (event.target.id === 'tcModal') closeTCModal();
         }
+        function openChangelogModal() {
+            document.getElementById('changelogModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeChangelogModal() {
+            document.getElementById('changelogModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        function closeChangelogModalClick(event) {
+            if (event.target.id === 'changelogModal') closeChangelogModal();
+        }
         document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape' && document.getElementById('tcModal').classList.contains('active')) {
-                closeTCModal();
+            if (event.key === 'Escape') {
+                if (document.getElementById('tcModal').classList.contains('active')) {
+                    closeTCModal();
+                }
+                if (document.getElementById('changelogModal').classList.contains('active')) {
+                    closeChangelogModal();
+                }
             }
         });
     </script>
