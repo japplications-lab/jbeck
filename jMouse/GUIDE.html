@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jMouse User Guide</title>
+    <style>
+        :root {
+            --bg-dark: #0a0e17;
+            --bg-card: #141824;
+            --border: #1e2330;
+            --border-glow: #2a3244;
+            --accent-green: #00ff88;
+            --accent-green-dim: #00cc6f;
+            --text-primary: #e8ecf4;
+            --text-secondary: #8b95a8;
+            --text-muted: #4a5568;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 50px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid var(--accent-green);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--accent-green);
+            border-radius: 8px;
+            color: var(--accent-green);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .back-link:hover {
+            background: rgba(0, 255, 136, 0.2);
+            transform: translateX(-3px);
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: var(--accent-green);
+            margin-bottom: 10px;
+        }
+        .version {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        h2 {
+            font-size: 1.5rem;
+            color: var(--accent-green);
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        h3 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin: 25px 0 15px;
+        }
+        p {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+        ul, ol {
+            margin: 15px 0 15px 30px;
+            color: var(--text-secondary);
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        code {
+            background: rgba(0, 255, 136, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: var(--accent-green);
+            font-size: 0.9em;
+        }
+        .note {
+            background: rgba(0, 255, 136, 0.05);
+            border-left: 4px solid var(--accent-green);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .warning {
+            background: rgba(255, 213, 0, 0.05);
+            border-left: 4px solid #ffd500;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .step {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--accent-green);
+            color: var(--bg-dark);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        strong {
+            color: var(--accent-green);
+        }
+        a {
+            color: var(--accent-green);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="https://jbeck.net/software.html" class="back-link">← Back to Software</a>
+            <h1>🖱️ jMouse User Guide</h1>
+            <p class="version">Version 1.0.0 • Keep Your System Awake</p>
+        </div>
+
+        <h2>📖 What is jMouse?</h2>
+        <p>
+            jMouse is a lightweight desktop application that prevents your Windows computer from going idle. It accomplishes this by:
+        </p>
+        <ul>
+            <li>Simulating subtle mouse movements (±5 pixels) every 60 seconds</li>
+            <li>Pressing the F15 key (a virtual key that doesn't interfere with your work)</li>
+            <li>Running quietly in the background or system tray</li>
+        </ul>
+        <p>
+            This keeps your screen from locking, prevents screensavers from activating, and maintains your "active" status in communication apps like Microsoft Teams, Slack, or Zoom.
+        </p>
+
+        <div class="note">
+            <strong>💡 Intended Use Cases:</strong>
+            <ul style="margin-top: 10px;">
+                <li>Long-running downloads or file transfers</li>
+                <li>Remote desktop sessions that time out</li>
+                <li>Monitoring dashboards that need to stay visible</li>
+                <li>Presentations or demos</li>
+                <li>Keeping systems awake during overnight processes</li>
+            </ul>
+        </div>
+
+        <h2>🚀 Getting Started</h2>
+
+        <div class="step">
+            <h3><span class="step-number">1</span>Download jMouse</h3>
+            <p>
+                Download <code>jMouse.exe</code> from the official source: <a href="https://jbeck.net">jbeck.net</a>
+            </p>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">2</span>Run the Application</h3>
+            <p>
+                Double-click <code>jMouse.exe</code> to launch. No installation required — it's a standalone executable.
+            </p>
+            <div class="warning">
+                <strong>⚠️ Windows SmartScreen Warning:</strong> On first launch, Windows may show a warning because the app is not code-signed. Click <strong>"More info"</strong> → <strong>"Run anyway"</strong> to proceed.
+            </div>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">3</span>Enable jMouse</h3>
+            <p>
+                Click the green <strong>"Enable"</strong> button. jMouse will immediately start simulating activity every 60 seconds.
+            </p>
+        </div>
+
+        <h2>🎯 Features & How to Use</h2>
+
+        <h3>⏰ Scheduled End Time</h3>
+        <p>
+            You can configure jMouse to automatically disable itself at a specific time:
+        </p>
+        <ol>
+            <li>Check the <strong>"Scheduled End Time"</strong> checkbox</li>
+            <li>Set your desired time using the hour, minute, and AM/PM dropdowns</li>
+            <li>Click <strong>"Enable"</strong></li>
+        </ol>
+        <p>
+            When the scheduled time arrives, jMouse will automatically disable itself and reset the schedule to default (5:00 PM).
+        </p>
+
+        <div class="note">
+            <strong>💡 Tip:</strong> The schedule cannot be changed while jMouse is enabled. Disable it first if you need to adjust the time.
+        </div>
+
+        <h3>🔔 System Tray Mode</h3>
+        <p>
+            You can minimize jMouse to the system tray (near your clock):
+        </p>
+        <ol>
+            <li>Click the <strong>minimize button</strong> (—) in the window's title bar</li>
+            <li>Choose <strong>"Yes (System Tray)"</strong> when prompted</li>
+            <li>jMouse will continue running in the background</li>
+        </ol>
+        <p>
+            To restore the window, double-click the jMouse icon in the system tray.
+        </p>
+
+        <div class="note">
+            <strong>💡 Right-click the tray icon</strong> to quickly enable/disable jMouse or exit the app without opening the main window.
+        </div>
+
+        <h3>🛑 Disabling jMouse</h3>
+        <p>
+            Click the red <strong>"Disable"</strong> button to stop activity simulation. The button will swap back to green "Enable" when disabled.
+        </p>
+
+        <h3>❌ Closing jMouse</h3>
+        <p>
+            When you click the <strong>X button</strong>, a confirmation dialog appears:
+        </p>
+        <ul>
+            <li><strong>Yes</strong> (green) — Quit the app completely</li>
+            <li><strong>No</strong> (red) — Cancel and return to the app</li>
+        </ul>
+
+        <h2>⚙️ How It Works</h2>
+        <p>
+            jMouse operates by sending low-level input events to Windows every 60 seconds:
+        </p>
+        <ul>
+            <li><strong>Mouse movement:</strong> Moves the cursor by a random offset of ±5 pixels (barely noticeable)</li>
+            <li><strong>F15 keypress:</strong> Simulates pressing the F15 key (a virtual key that has no effect on most applications)</li>
+        </ul>
+        <p>
+            These inputs trick Windows into thinking you're actively using the computer, preventing idle timeouts, screen locks, and sleep mode.
+        </p>
+
+        <div class="warning">
+            <strong>⚠️ Important:</strong> jMouse does <em>not</em> prevent you from manually locking your computer (Win+L) or putting it to sleep. It only prevents <em>automatic</em> idle timeouts.
+        </div>
+
+        <h2>🔒 Security & Privacy</h2>
+        <p>
+            jMouse is a standalone application that:
+        </p>
+        <ul>
+            <li>✅ <strong>Does not</strong> access the internet</li>
+            <li>✅ <strong>Does not</strong> read or write files (except a small settings.json for preferences)</li>
+            <li>✅ <strong>Does not</strong> collect any data</li>
+            <li>✅ <strong>Does not</strong> modify system settings or registry</li>
+            <li>✅ Runs entirely locally on your machine</li>
+        </ul>
+
+        <div class="note">
+            <strong>🛡️ Antivirus False Positives:</strong> Some antivirus software may flag jMouse because it uses PyAutoGUI to simulate input. This is a known false positive. jMouse contains no malware. Always download from the official source: <a href="https://jbeck.net">jbeck.net</a>
+        </div>
+
+        <h2>📝 Settings File</h2>
+        <p>
+            jMouse stores a single preference file at:
+        </p>
+        <code>C:\Users\[YourUsername]\AppData\Roaming\jMouse\settings.json</code>
+        <p style="margin-top: 15px;">
+            This file only contains your minimize-to-tray preference. You can safely delete it to reset jMouse to defaults.
+        </p>
+
+        <h2>🆘 Troubleshooting</h2>
+
+        <h3>Problem: jMouse doesn't keep Teams/Slack active</h3>
+        <p>
+            <strong>Solution:</strong> Some apps (like Teams) have their own inactivity detection that may override system-level activity. jMouse works for most cases, but presence detection varies by app.
+        </p>
+
+        <h3>Problem: Antivirus blocked or quarantined jMouse</h3>
+        <p>
+            <strong>Solution:</strong> Add jMouse.exe to your antivirus exclusion list. The detection is a false positive due to PyAutoGUI and PyInstaller.
+        </p>
+
+        <h3>Problem: Windows SmartScreen blocks jMouse</h3>
+        <p>
+            <strong>Solution:</strong> Click <strong>"More info"</strong> → <strong>"Run anyway"</strong>. The app is not code-signed, which triggers SmartScreen warnings for unsigned executables.
+        </p>
+
+        <h3>Problem: jMouse stops working after a while</h3>
+        <p>
+            <strong>Solution:</strong> Check if Windows Defender or your antivirus quarantined the app. Also ensure jMouse wasn't accidentally disabled via the tray icon.
+        </p>
+
+        <h2>⚖️ Legal & Ethical Use</h2>
+        <div class="warning">
+            <strong>⚠️ Read the Terms & Conditions</strong>
+            <p style="margin-top: 10px;">
+                Before using jMouse, review the full Terms & Conditions available in the app. Key points:
+            </p>
+            <ul style="margin-top: 10px;">
+                <li>Use at your own risk — the author accepts no liability</li>
+                <li>Verify compliance with your workplace IT and HR policies</li>
+                <li>Do not use jMouse to falsify attendance or deceive employers</li>
+                <li>Misuse is the sole responsibility of the user</li>
+            </ul>
+        </div>
+
+        <h2>📞 Support</h2>
+        <p>
+            For questions, bug reports, or feedback, visit:
+        </p>
+        <p style="margin-top: 10px;">
+            <strong><a href="https://jbeck.net">jbeck.net</a></strong>
+        </p>
+
+        <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem;">
+            <p>jMouse v1.0.0 • © 2025 jbeck.net</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -16,17 +16,12 @@
             --accent-green: #00ff88;
             --accent-green-dim: #00cc6f;
             --accent-orange: #ff8800;
+            --accent-yellow: #ffd500;
             --text-primary: #e8ecf4;
             --text-secondary: #8b95a8;
             --text-muted: #4a5568;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Outfit', sans-serif;
             background: var(--bg-dark);
@@ -35,14 +30,11 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
-
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background-image: 
                 linear-gradient(var(--border) 1px, transparent 1px),
                 linear-gradient(90deg, var(--border) 1px, transparent 1px);
@@ -51,12 +43,10 @@
             z-index: -1;
             animation: gridShift 20s linear infinite;
         }
-
         @keyframes gridShift {
             0% { transform: translate(0, 0); }
             100% { transform: translate(50px, 50px); }
         }
-
         .orb {
             position: fixed;
             border-radius: 50%;
@@ -65,47 +55,28 @@
             z-index: -1;
             pointer-events: none;
         }
-
         .orb-1 {
-            width: 600px;
-            height: 600px;
+            width: 600px; height: 600px;
             background: var(--accent-green);
-            top: -200px;
-            right: -200px;
+            top: -200px; right: -200px;
             animation: float1 25s ease-in-out infinite;
         }
-
         .orb-2 {
-            width: 500px;
-            height: 500px;
+            width: 500px; height: 500px;
             background: var(--accent-green);
-            bottom: -150px;
-            left: -150px;
+            bottom: -150px; left: -150px;
             animation: float2 20s ease-in-out infinite;
         }
-
         @keyframes float1 {
             0%, 100% { transform: translate(0, 0) scale(1); }
             50% { transform: translate(-100px, 100px) scale(1.1); }
         }
-
         @keyframes float2 {
             0%, 100% { transform: translate(0, 0) scale(1); }
             50% { transform: translate(100px, -100px) scale(1.15); }
         }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 60px 40px;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 80px;
-            animation: fadeInDown 0.8s ease-out;
-        }
-
+        .container { max-width: 1400px; margin: 0 auto; padding: 60px 40px; }
+        header { text-align: center; margin-bottom: 80px; animation: fadeInDown 0.8s ease-out; }
         .site-title {
             font-family: 'JetBrains Mono', monospace;
             font-size: clamp(2.5rem, 6vw, 4rem);
@@ -115,14 +86,7 @@
             letter-spacing: -0.02em;
             text-shadow: 0 0 40px rgba(0, 255, 136, 0.3);
         }
-
-        .site-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            font-weight: 300;
-            margin-bottom: 30px;
-        }
-
+        .site-subtitle { font-size: 1.25rem; color: var(--text-secondary); font-weight: 300; margin-bottom: 30px; }
         .breadcrumb {
             display: inline-flex;
             align-items: center;
@@ -135,28 +99,15 @@
             border: 1px solid var(--border);
             border-radius: 100px;
         }
-
-        .breadcrumb a {
-            color: var(--accent-green);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .breadcrumb a:hover {
-            color: var(--accent-green-dim);
-        }
-
-        .breadcrumb-sep {
-            color: var(--border-glow);
-        }
-
+        .breadcrumb a { color: var(--accent-green); text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--accent-green-dim); }
+        .breadcrumb-sep { color: var(--border-glow); }
         .software-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
             gap: 30px;
             margin-bottom: 80px;
         }
-
         .software-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -169,46 +120,34 @@
             display: flex;
             flex-direction: column;
         }
-
         .software-card:nth-child(1) { animation-delay: 0.1s; }
         .software-card:nth-child(2) { animation-delay: 0.2s; }
         .software-card:nth-child(3) { animation-delay: 0.3s; }
-
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         .software-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 4px;
             background: var(--accent-green);
             opacity: 0;
             transition: opacity 0.4s;
         }
-
         .software-card:hover {
             border-color: var(--border-glow);
             transform: translateY(-8px);
             box-shadow: 0 20px 60px rgba(0, 217, 255, 0.15);
         }
-
-        .software-card:hover::before {
-            opacity: 1;
-        }
-
+        .software-card:hover::before { opacity: 1; }
         .card-icon {
-            width: 72px;
-            height: 72px;
+            width: 72px; height: 72px;
             background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 255, 136, 0.05));
             border: 1px solid var(--border-glow);
             border-radius: 16px;
@@ -219,31 +158,10 @@
             margin-bottom: 24px;
             transition: transform 0.4s;
         }
-
-        .software-card:hover .card-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .card-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--text-primary);
-        }
-
-        .card-tagline {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        .card-features {
-            list-style: none;
-            margin-bottom: 28px;
-            flex-grow: 1;
-        }
-
+        .software-card:hover .card-icon { transform: scale(1.1) rotate(5deg); }
+        .card-title { font-size: 1.75rem; font-weight: 700; margin-bottom: 12px; color: var(--text-primary); }
+        .card-tagline { font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.5; }
+        .card-features { list-style: none; margin-bottom: 28px; flex-grow: 1; }
         .card-features li {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
@@ -252,26 +170,15 @@
             padding-left: 24px;
             position: relative;
         }
-
-        .card-features li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--accent-green);
-        }
-
-        .card-footer {
-            display: flex;
-            gap: 12px;
-            margin-top: auto;
-        }
-
+        .card-features li::before { content: '→'; position: absolute; left: 0; color: var(--accent-green); }
+        .card-footer { display: flex; gap: 12px; margin-top: auto; flex-wrap: wrap; }
         .btn {
             flex: 1;
-            padding: 14px 24px;
+            min-width: 100px;
+            padding: 14px 16px;
             border-radius: 10px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 600;
             text-decoration: none;
             text-align: center;
@@ -279,28 +186,14 @@
             cursor: pointer;
             border: none;
         }
-
-        .btn-primary {
-            background: var(--accent-green);
-            color: var(--bg-dark);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 255, 136, 0.3);
-        }
-
+        .btn-primary { background: var(--accent-green); color: var(--bg-dark); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 255, 136, 0.3); }
         .btn-secondary {
             background: rgba(255, 255, 255, 0.05);
             color: var(--text-primary);
             border: 1px solid var(--border-glow);
         }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--accent-green);
-        }
-
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.08); border-color: var(--accent-green); }
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -314,61 +207,38 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
-
         .status-live {
             background: rgba(0, 255, 136, 0.1);
             color: var(--accent-green);
             border: 1px solid rgba(0, 255, 136, 0.3);
         }
-
         .status-beta {
             background: rgba(255, 136, 0, 0.1);
             color: var(--accent-orange);
             border: 1px solid rgba(255, 136, 0, 0.3);
         }
-
         .status-soon {
             background: rgba(139, 149, 168, 0.1);
             color: var(--text-secondary);
             border: 1px solid var(--border-glow);
         }
-
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .status-live .status-dot {
-            background: var(--accent-green);
-            box-shadow: 0 0 8px var(--accent-green);
-        }
-
-        .status-beta .status-dot {
-            background: var(--accent-orange);
-        }
-
+        .status-dot { width: 6px; height: 6px; border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+        .status-live .status-dot { background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
+        .status-beta .status-dot { background: var(--accent-orange); }
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.4; }
         }
-
         .software-card.featured {
             grid-column: span 2;
             background: linear-gradient(135deg, rgba(0, 255, 136, 0.08), rgba(0, 255, 136, 0.03));
             border-color: var(--border-glow);
         }
-
-        @media (max-width: 1200px) {
-            .software-card.featured { grid-column: span 1; }
-        }
-
+        @media (max-width: 1200px) { .software-card.featured { grid-column: span 1; } }
         @media (max-width: 768px) {
             .software-grid { grid-template-columns: 1fr; }
             .container { padding: 40px 20px; }
         }
-
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -377,15 +247,156 @@
             font-size: 0.85rem;
             border-top: 1px solid var(--border);
         }
+        footer a { color: var(--accent-green); text-decoration: none; }
+        footer a:hover { color: var(--accent-green-dim); }
 
-        footer a {
+        /* T&C Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            animation: fadeIn 0.3s;
+        }
+        .modal-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow: hidden;
+            animation: slideUp 0.4s ease-out;
+            display: flex;
+            flex-direction: column;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-header {
+            padding: 30px 30px 20px;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+        .modal-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.75rem;
+            font-weight: 700;
             color: var(--accent-green);
-            text-decoration: none;
+            margin-bottom: 8px;
         }
-
-        footer a:hover {
-            color: var(--accent-green-dim);
+        .modal-subtitle { font-size: 0.9rem; color: var(--text-muted); }
+        .modal-content { padding: 30px; overflow-y: auto; flex-grow: 1; }
+        .modal-section { margin-bottom: 30px; }
+        .modal-section:last-child { margin-bottom: 0; }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
         }
+        .section-title.warning { color: var(--accent-yellow); }
+        .section-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+        .tech-list { display: grid; gap: 12px; margin: 16px 0; }
+        .tech-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+        }
+        .tech-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-bottom: 6px;
+        }
+        .tech-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+        .risk-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+        .risk-badge {
+            flex-shrink: 0;
+            width: 36px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #000;
+        }
+        .risk-badge.score-1 { background: #00ff88; }
+        .risk-badge.score-2 { background: #aaee00; }
+        .risk-badge.score-3 { background: #ffd500; }
+        .risk-badge.score-4 { background: #ff8800; }
+        .risk-badge.score-5 { background: #ff3366; }
+        .risk-content { flex-grow: 1; }
+        .risk-title { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+        .risk-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+        .official-source {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .source-domain {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin: 12px 0;
+        }
+        .modal-footer {
+            padding: 20px 30px;
+            border-top: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+        .modal-close-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent-green);
+            border: none;
+            border-radius: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--bg-dark);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .modal-close-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 255, 136, 0.3);
+        }
+        .divider { height: 1px; background: var(--border); margin: 24px 0; }
     </style>
 </head>
 <body>
@@ -421,7 +432,9 @@
                 </ul>
                 <div class="card-footer">
                     <a href="#" class="btn btn-primary">Download v1.0.0</a>
-                    <a href="#" class="btn btn-secondary">View Source</a>
+                    <a href="jmouse_app/GUIDE.html" class="btn btn-secondary">Guide</a>
+                    <a href="jmouse_app/FAQ.html" class="btn btn-secondary">FAQ</a>
+                    <button class="btn btn-secondary" onclick="openTCModal()">Terms</button>
                 </div>
             </article>
 
@@ -432,7 +445,7 @@
                 </span>
                 <div class="card-icon">🚀</div>
                 <h2 class="card-title">Project Alpha</h2>
-                <p class="card-tagline">An upcoming tool currently in stealth mode. Stay tuned for the reveal.</p>
+                <p class="card-tagline">An upcoming tool currently in stealth mode. Stay tuned.</p>
                 <ul class="card-features">
                     <li>Under active development</li>
                     <li>AI-powered automation</li>
@@ -450,22 +463,185 @@
                 </span>
                 <div class="card-icon">⚡</div>
                 <h2 class="card-title">Project Beta</h2>
-                <p class="card-tagline">Early access to the next experimental tool. Bugs are features here.</p>
+                <p class="card-tagline">Early access to the next tool. Bugs are features.</p>
                 <ul class="card-features">
-                    <li>Public beta testing phase</li>
+                    <li>Public beta testing</li>
                     <li>Feedback welcomed</li>
                     <li>Rapidly evolving</li>
                 </ul>
                 <div class="card-footer">
                     <a href="#" class="btn btn-primary">Try Beta</a>
-                    <a href="#" class="btn btn-secondary">Report Issue</a>
+                    <a href="#" class="btn btn-secondary">Report</a>
                 </div>
             </article>
         </div>
 
         <footer>
-            <p>&copy; 2025 <a href="index.html">jbeck.net</a> · All software provided as-is · Use responsibly</p>
+            <p>&copy; 2025 <a href="index.html">jbeck.net</a> · Use responsibly</p>
         </footer>
     </div>
+
+    <!-- T&C Modal -->
+    <div class="modal-overlay" id="tcModal" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2 class="modal-title">jMouse • Terms & Conditions</h2>
+                <p class="modal-subtitle">v1.0.0 • Please read before use</p>
+            </div>
+
+            <div class="modal-content">
+                <div class="modal-section">
+                    <h3 class="section-title">What is jMouse?</h3>
+                    <p class="section-text">
+                        jMouse is a desktop utility designed to prevent your workstation from going idle by simulating subtle mouse movements and virtual key presses at regular intervals. It keeps your system awake, prevents screensavers, and maintains your presence status active in communication tools like Microsoft Teams.
+                    </p>
+                    <p class="section-text">
+                        Intended for legitimate use cases like long downloads, remote sessions, monitoring dashboards, or presentations.
+                    </p>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="modal-section">
+                    <h3 class="section-title warning">⚠️ Use at Your Own Risk</h3>
+                    <p class="section-text">
+                        This software is provided as-is, without warranty. By using jMouse, you accept full responsibility for any consequences, including violations of workplace policy, IT security policy, or third-party terms of service.
+                    </p>
+                    <p class="section-text">
+                        The author accepts no liability for disciplinary action, data loss, security incidents, or other damages resulting from use of this application.
+                    </p>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="modal-section">
+                    <h3 class="section-title">Technologies Used</h3>
+                    <div class="tech-list">
+                        <div class="tech-item">
+                            <div class="tech-name">Python 3</div>
+                            <div class="tech-desc">Core programming language. Bundled inside — no separate installation required.</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-name">PyInstaller</div>
+                            <div class="tech-desc">Packages the app into a single standalone .exe file.</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-name">CustomTkinter</div>
+                            <div class="tech-desc">Modern dark-themed UI framework.</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-name">PyAutoGUI</div>
+                            <div class="tech-desc">Simulates mouse movements and key presses.</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-name">pystray</div>
+                            <div class="tech-desc">Creates and manages the system tray icon.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="modal-section">
+                    <h3 class="section-title">Risk Assessment (1-5 Scale)</h3>
+                    <p class="section-text" style="margin-bottom: 20px;">The following risks have been identified:</p>
+
+                    <div class="risk-item">
+                        <div class="risk-badge score-1">1</div>
+                        <div class="risk-content">
+                            <div class="risk-title">Bundled Runtime</div>
+                            <div class="risk-desc">Self-contained Python runtime via PyInstaller. No external installation required.</div>
+                        </div>
+                    </div>
+
+                    <div class="risk-item">
+                        <div class="risk-badge score-2">2</div>
+                        <div class="risk-content">
+                            <div class="risk-title">PyAutoGUI Input Simulation</div>
+                            <div class="risk-desc">Operates at OS input level. Security software may interfere on some systems.</div>
+                        </div>
+                    </div>
+
+                    <div class="risk-item">
+                        <div class="risk-badge score-3">3</div>
+                        <div class="risk-content">
+                            <div class="risk-title">Antivirus False Positives</div>
+                            <div class="risk-desc">May be flagged due to PyAutoGUI and PyInstaller. The app does not access network, read files, or modify system settings.</div>
+                        </div>
+                    </div>
+
+                    <div class="risk-item">
+                        <div class="risk-badge score-3">3</div>
+                        <div class="risk-content">
+                            <div class="risk-title">Workplace Policy Violation</div>
+                            <div class="risk-desc">Some organizations prohibit activity simulation tools. Verify compliance before use.</div>
+                        </div>
+                    </div>
+
+                    <div class="risk-item">
+                        <div class="risk-badge score-4">4</div>
+                        <div class="risk-content">
+                            <div class="risk-title">False Presence Indication</div>
+                            <div class="risk-desc">May show you as active in Teams/Slack when you're not at your desk.</div>
+                        </div>
+                    </div>
+
+                    <div class="risk-item">
+                        <div class="risk-badge score-4">4</div>
+                        <div class="risk-content">
+                            <div class="risk-title">Untrusted Distribution Risk</div>
+                            <div class="risk-desc">Copies from sources other than jbeck.net cannot be verified for integrity.</div>
+                        </div>
+                    </div>
+
+                    <div class="risk-item">
+                        <div class="risk-badge score-5">5</div>
+                        <div class="risk-content">
+                            <div class="risk-title">Misuse / Abuse Potential</div>
+                            <div class="risk-desc">Using this tool to falsify attendance or deceive employers is misuse and your sole responsibility.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="modal-section">
+                    <h3 class="section-title">Official Distribution</h3>
+                    <div class="official-source">
+                        <p class="section-text">
+                            jMouse is developed and maintained exclusively by its original author. To ensure you're running a genuine, unmodified copy, always obtain jMouse from:
+                        </p>
+                        <div class="source-domain">jbeck.net</div>
+                        <p class="section-text" style="margin-bottom: 0;">
+                            Copies from third-party websites, file-sharing platforms, or unofficial channels have not been verified and may have been tampered with. The author accepts no responsibility for issues arising from software obtained outside of jbeck.net.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="modal-close-btn" onclick="closeTCModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTCModal() {
+            document.getElementById('tcModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeTCModal() {
+            document.getElementById('tcModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        function closeModal(event) {
+            if (event.target.id === 'tcModal') closeTCModal();
+        }
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && document.getElementById('tcModal').classList.contains('active')) {
+                closeTCModal();
+            }
+        });
+    </script>
 </body>
 </html>
