@@ -110,27 +110,28 @@
         }
 
         .header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .logo {
-            display: inline-block;
-            width: 80px;
-            height: 80px;
-            background: var(--accent-green);
-            border-radius: 20px;
-            margin-bottom: 24px;
-            display: flex;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 40px;
             align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            animation: pulse 3s ease-in-out infinite;
+            margin-bottom: 60px;
+            padding: 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
         }
 
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.4); }
-            50% { box-shadow: 0 0 40px rgba(0, 255, 136, 0.6); }
+        .profile-image {
+            width: 280px;
+            height: 280px;
+            border-radius: 20px;
+            border: 3px solid var(--accent-green);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+            object-fit: cover;
+        }
+
+        .header-content {
+            text-align: left;
         }
 
         .site-title {
@@ -395,6 +396,22 @@
                 padding: 40px 20px;
             }
 
+            .header {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 30px 20px;
+            }
+
+            .header-content {
+                text-align: center;
+            }
+
+            .profile-image {
+                width: 200px;
+                height: 200px;
+                margin: 0 auto 20px;
+            }
+
             .content-card {
                 padding: 30px 25px;
             }
@@ -411,13 +428,15 @@
 
     <div class="container">
         <header class="header">
-            <div class="logo">🤖</div>
-            <h1 class="site-title">jbeck.app</h1>
-            <p class="tagline">AI Hobby Lab & Experimental Software Forge</p>
-            <span class="status">
-                <span class="status-dot"></span>
-                Occasionally Functional
-            </span>
+            <img src="profile.jpg" alt="Justin Beck" class="profile-image">
+            <div class="header-content">
+                <h1 class="site-title">jbeck.app</h1>
+                <p class="tagline">AI Hobby Lab & Experimental Software Forge</p>
+                <span class="status">
+                    <span class="status-dot"></span>
+                    Occasionally Functional
+                </span>
+            </div>
         </header>
 
         <div class="content-card">
