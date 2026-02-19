@@ -432,6 +432,65 @@
             box-shadow: 0 8px 20px rgba(0, 255, 136, 0.3);
         }
         .divider { height: 1px; background: var(--border); margin: 24px 0; }
+
+        /* Coming Soon Carousel */
+        .coming-soon-item {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .coming-soon-item.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: var(--accent-green);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        .carousel-btn:hover {
+            background: rgba(0, 255, 136, 0.2);
+            border-color: var(--accent-green);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .carousel-prev { left: -20px; }
+        .carousel-next { right: -20px; }
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-glow);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .indicator:hover {
+            background: rgba(0, 255, 136, 0.5);
+        }
+        .indicator.active {
+            background: var(--accent-green);
+            width: 24px;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -477,7 +536,7 @@
                     </p>
                 </div>
                 <div class="card-footer">
-                    <a href="https://github.com/japplications-lab/jbeck/raw/main/jmouse_app/dist/jMouse_v2.0.exe" class="btn btn-primary" download>Download v2.0.0</a>
+                    <a href="https://github.com/japplications-lab/jbeck/raw/main/jmouse_app/dist/jMouse.exe" class="btn btn-primary" download>Download v2.0.0</a>
                     <a href="jmouse_app/GUIDE.html" class="btn btn-secondary">Guide</a>
                     <a href="jmouse_app/FAQ.html" class="btn btn-secondary">FAQ</a>
                     <button class="btn btn-secondary" onclick="openChangelogModal()">Changelog</button>
@@ -485,22 +544,112 @@
                 </div>
             </article>
 
-            <article class="software-card">
+            <!-- Coming Soon Carousel -->
+            <article class="software-card" style="position: relative; overflow: hidden;">
                 <span class="status-badge status-soon">
                     <span class="status-dot"></span>
                     Coming Soon
                 </span>
-                <div class="card-icon">🌤️</div>
-                <h2 class="card-title">jWeather.app</h2>
-                <p class="card-tagline">Hyper-modern weather forecasting powered by AI. Think meteorology meets machine learning meets obsessive attention to UI detail.</p>
-                <ul class="card-features">
-                    <li>Real-time weather data with AI-enhanced predictions</li>
-                    <li>Sleek, animated interface that makes checking the weather addictive</li>
-                    <li>Web app first, native mobile apps in the pipeline</li>
-                    <li>Zero clutter, maximum vibes</li>
-                </ul>
-                <div class="card-footer">
-                    <a href="#" class="btn btn-secondary">Notify Me</a>
+
+                <!-- Carousel Navigation -->
+                <button class="carousel-btn carousel-prev" onclick="changeComingSoon(-1)" aria-label="Previous app">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <button class="carousel-btn carousel-next" onclick="changeComingSoon(1)" aria-label="Next app">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+
+                <!-- Carousel Items -->
+                <div class="coming-soon-item active" data-index="0">
+                    <div class="card-icon">📋</div>
+                    <h2 class="card-title">jClip</h2>
+                    <p class="card-tagline">Advanced clipboard manager with RDP clipboard fix. The only clipboard tool remote workers need.</p>
+                    <ul class="card-features">
+                        <li>Persistent clipboard history with search</li>
+                        <li><strong>Auto-detect and fix broken RDP clipboard</strong></li>
+                        <li><strong>Emergency text bridge when copy/paste dies</strong></li>
+                        <li>Text templates with variables for quick snippets</li>
+                        <li>Works seamlessly across local and RDP sessions</li>
+                    </ul>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-secondary">Notify Me</a>
+                    </div>
+                </div>
+
+                <div class="coming-soon-item" data-index="1">
+                    <div class="card-icon">🪟</div>
+                    <h2 class="card-title">jWindow</h2>
+                    <p class="card-tagline">Window layout manager that saves and restores your perfect workspace setup with a single hotkey.</p>
+                    <ul class="card-features">
+                        <li>Save window layouts as profiles</li>
+                        <li>Quick restore with hotkeys (Ctrl+Alt+1, 2, 3...)</li>
+                        <li>Per-monitor profiles for multi-monitor setups</li>
+                        <li>Auto-apply based on time or connected displays</li>
+                        <li>Virtual desktops management</li>
+                    </ul>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-secondary">Notify Me</a>
+                    </div>
+                </div>
+
+                <div class="coming-soon-item" data-index="2">
+                    <div class="card-icon">📸</div>
+                    <h2 class="card-title">jCapture</h2>
+                    <p class="card-tagline">Lightweight screenshot and screen recording tool with instant editing. ShareX simplicity meets modern UX.</p>
+                    <ul class="card-features">
+                        <li>Global hotkey capture (region, window, fullscreen)</li>
+                        <li>Instant annotation with arrows, text, blur</li>
+                        <li>GIF and video recording with audio</li>
+                        <li>OCR text extraction from screenshots</li>
+                        <li>Auto-upload or save with history viewer</li>
+                    </ul>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-secondary">Notify Me</a>
+                    </div>
+                </div>
+
+                <div class="coming-soon-item" data-index="3">
+                    <div class="card-icon">🌤️</div>
+                    <h2 class="card-title">jWeather.app</h2>
+                    <p class="card-tagline">Hyper-modern weather forecasting powered by AI. Think meteorology meets machine learning meets obsessive attention to UI detail.</p>
+                    <ul class="card-features">
+                        <li>Real-time weather data with AI-enhanced predictions</li>
+                        <li>Sleek, animated interface that makes checking the weather addictive</li>
+                        <li>Web app first, native mobile apps in the pipeline</li>
+                        <li>Zero clutter, maximum vibes</li>
+                    </ul>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-secondary">Notify Me</a>
+                    </div>
+                </div>
+
+                <div class="coming-soon-item" data-index="4">
+                    <div class="card-icon">📁</div>
+                    <h2 class="card-title">jCopy</h2>
+                    <p class="card-tagline">Beautiful GUI for RoboCopy. Schedule backups, sync folders, and transfer files with all of RoboCopy's power, none of the complexity.</p>
+                    <ul class="card-features">
+                        <li>Visual interface for RoboCopy's powerful features</li>
+                        <li>Scheduled backups with automatic resumption</li>
+                        <li>Mirror, sync, or incremental copy modes</li>
+                        <li>Network share support with credential management</li>
+                        <li>Real-time progress with speed and ETA</li>
+                    </ul>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-secondary">Notify Me</a>
+                    </div>
+                </div>
+
+                <!-- Carousel Indicators -->
+                <div class="carousel-indicators">
+                    <span class="indicator active" onclick="goToComingSoon(0)"></span>
+                    <span class="indicator" onclick="goToComingSoon(1)"></span>
+                    <span class="indicator" onclick="goToComingSoon(2)"></span>
+                    <span class="indicator" onclick="goToComingSoon(3)"></span>
+                    <span class="indicator" onclick="goToComingSoon(4)"></span>
                 </div>
             </article>
         </div>
@@ -820,6 +969,42 @@
                 }
             }
         });
+
+        // Coming Soon Carousel
+        let currentComingSoonIndex = 0;
+        const comingSoonItems = document.querySelectorAll('.coming-soon-item');
+        const indicators = document.querySelectorAll('.carousel-indicators .indicator');
+
+        function showComingSoon(index) {
+            // Wrap around
+            if (index < 0) index = comingSoonItems.length - 1;
+            if (index >= comingSoonItems.length) index = 0;
+            
+            // Update items
+            comingSoonItems.forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+            
+            // Update indicators
+            indicators.forEach((ind, i) => {
+                ind.classList.toggle('active', i === index);
+            });
+            
+            currentComingSoonIndex = index;
+        }
+
+        function changeComingSoon(direction) {
+            showComingSoon(currentComingSoonIndex + direction);
+        }
+
+        function goToComingSoon(index) {
+            showComingSoon(index);
+        }
+
+        // Auto-advance carousel every 5 seconds
+        setInterval(() => {
+            changeComingSoon(1);
+        }, 5000);
     </script>
 </body>
 </html>
