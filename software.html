@@ -462,14 +462,17 @@
                 <h2 class="card-title">jMouse</h2>
                 <p class="card-tagline">Keep your system awake and stay active. A modern mouse jiggler with scheduling capabilities and dark-themed UI.</p>
                 <ul class="card-features">
-                    <li>Subtle mouse movements + F15 keypresses every 60s</li>
-                    <li>Scheduled auto-disable at custom end time</li>
-                    <li>System tray integration with notifications</li>
+                    <li>Subtle mouse movements + F15 keypresses every 45-75s (randomized)</li>
+                    <li>Recurring daily routine scheduler with per-day configuration</li>
+                    <li>Global hotkeys (Ctrl+Alt+E/M/Q) for quick control</li>
+                    <li>Smart idle detection (only jiggles after 30s inactivity)</li>
+                    <li>System tray integration with click-to-restore</li>
+                    <li>Windows startup automation options</li>
                     <li>Standalone .exe — zero Python installation required</li>
-                    <li>Built with CustomTkinter, PyAutoGUI, pystray</li>
+                    <li>Built with CustomTkinter, PyAutoGUI, pystray, pynput</li>
                 </ul>
                 <div class="card-footer">
-                    <a href="https://github.com/japplications-lab/jbeck/raw/main/jmouse_app/dist/jMouse.exe" class="btn btn-primary" download>Download v1.0.1</a>
+                    <a href="https://github.com/japplications-lab/jbeck/raw/main/jmouse_app/dist/jMouse.exe" class="btn btn-primary" download>Download v1.2.9</a>
                     <a href="jmouse_app/GUIDE.html" class="btn btn-secondary">Guide</a>
                     <a href="jmouse_app/FAQ.html" class="btn btn-secondary">FAQ</a>
                     <button class="btn btn-secondary" onclick="openChangelogModal()">Changelog</button>
@@ -498,7 +501,7 @@
         </div>
 
         <footer>
-            <p>&copy; 2025 <a href="index.html">jbeck.app</a> · Use responsibly</p>
+            <p>&copy; 2026 <a href="index.html">jbeck.app</a> · Use responsibly</p>
         </footer>
     </div>
 
@@ -655,9 +658,83 @@
             </div>
 
             <div class="modal-content">
+                <!-- v1.2.9 -->
+                <div class="modal-section">
+                    <h3 class="section-title" style="color: var(--accent-green);">v1.2.9 — February 2026</h3>
+                    <div class="tech-list">
+                        <div class="tech-item">
+                            <div class="tech-name">UI Improvements</div>
+                            <div class="tech-desc">
+                                • Advanced Settings button with gear icon<br>
+                                • Smart exit dialog with minimize option when service is active<br>
+                                • Pause routine confirmation dialog<br>
+                                • All windows now have icons with improved loading timing<br>
+                                • Tray icon click-to-restore functionality<br>
+                                • Notification balloon on first minimize<br>
+                                • Centered dialogs and optimized spacing
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-name">Enhanced Logic</div>
+                            <div class="tech-desc">
+                                • Manual kill block for routines with midnight reset<br>
+                                • Session limit validation (prevents past times)<br>
+                                • Proper listener cleanup (mouse, keyboard, hotkeys)<br>
+                                • Routine configuration with Cancel button and close handler
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-name">Bug Fixes</div>
+                            <div class="tech-desc">
+                                • Registry startup uses full Python executable path<br>
+                                • Tooltips properly destroyed to prevent ghosts<br>
+                                • AttributeError proxy hardening<br>
+                                • Icon persistence on all dialogs
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- v1.2.0 -->
+                <div class="modal-section">
+                    <h3 class="section-title" style="color: var(--accent-green);">v1.2.0 — February 2026</h3>
+                    <div class="tech-list">
+                        <div class="tech-item">
+                            <div class="tech-name">Major Features</div>
+                            <div class="tech-desc">
+                                • Global hotkeys: Ctrl+Alt+E (toggle), Ctrl+Alt+M (minimize), Ctrl+Alt+Q (quit)<br>
+                                • Recurring daily routine scheduler with per-day time configuration<br>
+                                • Windows startup options: open only, auto-enable, or scheduled routine<br>
+                                • Minimize to tray with preference memory
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- v1.1.0 -->
+                <div class="modal-section">
+                    <h3 class="section-title" style="color: var(--accent-green);">v1.1.0 — February 2026</h3>
+                    <div class="tech-list">
+                        <div class="tech-item">
+                            <div class="tech-name">Stealth Improvements</div>
+                            <div class="tech-desc">
+                                • Smart idle detection: only jiggles after 30s of inactivity<br>
+                                • Randomized intervals (45-75s instead of fixed 60s)<br>
+                                • Variable movement patterns: tiny/small/medium + jitter/orbital/slide
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
                 <!-- v1.0.1 -->
                 <div class="modal-section">
-                    <h3 class="section-title" style="color: var(--accent-green);">v1.0.1 — February 2025</h3>
+                    <h3 class="section-title" style="color: var(--accent-green);">v1.0.1 — February 2026</h3>
                     <div class="tech-list">
                         <div class="tech-item">
                             <div class="tech-name">Bug Fixes</div>
@@ -674,7 +751,7 @@
 
                 <!-- v1.0.0 -->
                 <div class="modal-section">
-                    <h3 class="section-title" style="color: var(--accent-green);">v1.0.0 — February 2025</h3>
+                    <h3 class="section-title" style="color: var(--accent-green);">v1.0.0 — February 2026</h3>
                     <div class="tech-list">
                         <div class="tech-item">
                             <div class="tech-name">Initial Release</div>

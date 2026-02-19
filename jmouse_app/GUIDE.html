@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>jMouse User Guide</title>
+    <title>jMouse v1.2.9 User Guide</title>
     <style>
         :root {
             --bg-dark: #0a0e17;
@@ -12,6 +12,7 @@
             --border-glow: #2a3244;
             --accent-green: #00ff88;
             --accent-green-dim: #00cc6f;
+            --accent-gold: #ffd500;
             --text-primary: #e8ecf4;
             --text-secondary: #8b95a8;
             --text-muted: #4a5568;
@@ -25,7 +26,7 @@
             padding: 40px 20px;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             background: var(--bg-card);
             border: 1px solid var(--border-glow);
@@ -103,32 +104,52 @@
         }
         .warning {
             background: rgba(255, 213, 0, 0.05);
-            border-left: 4px solid #ffd500;
+            border-left: 4px solid var(--accent-gold);
             padding: 15px 20px;
             margin: 20px 0;
             border-radius: 4px;
         }
-        .step {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 15px 0;
-        }
-        .step-number {
+        .key {
             display: inline-block;
-            width: 30px;
-            height: 30px;
-            background: var(--accent-green);
-            color: var(--bg-dark);
-            border-radius: 50%;
-            text-align: center;
-            line-height: 30px;
-            font-weight: bold;
-            margin-right: 10px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            margin: 0 2px;
         }
-        strong {
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .feature-card {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .feature-card h4 {
             color: var(--accent-green);
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            margin: 20px 0;
+            color: var(--text-secondary);
+            border-collapse: collapse;
+        }
+        th {
+            text-align: left;
+            padding: 10px;
+            color: var(--accent-green);
+            border-bottom: 1px solid var(--border);
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
         }
         a {
             color: var(--accent-green);
@@ -142,198 +163,257 @@
 <body>
     <div class="container">
         <div class="header">
-            <a href="https://jbeck.app/software.html" class="back-link">← Back to Software</a>
-            <h1>🖱️ jMouse User Guide</h1>
-            <p class="version">Version 1.0.0 • Keep Your System Awake</p>
+            <a href="../software.html" class="back-link">← Back to Software</a>
+            <h1>jMouse User Guide</h1>
+            <p class="version">Version 1.2.9 • February 2026</p>
         </div>
 
-        <h2>📖 What is jMouse?</h2>
-        <p>
-            jMouse is a lightweight desktop application that prevents your Windows computer from going idle. It accomplishes this by:
-        </p>
-        <ul>
-            <li>Simulating subtle mouse movements (±5 pixels) every 60 seconds</li>
-            <li>Pressing the F15 key (a virtual key that doesn't interfere with your work)</li>
-            <li>Running quietly in the background or system tray</li>
-        </ul>
-        <p>
-            This keeps your screen from locking, prevents screensavers from activating, and maintains your "active" status in communication apps like Microsoft Teams, Slack, or Zoom.
-        </p>
+        <h2>🎯 Quick Start</h2>
+        <ol>
+            <li><strong>Download</strong> jMouse.exe from <a href="../software.html">jbeck.app/software</a></li>
+            <li><strong>Run</strong> jMouse.exe (click "More info" → "Run anyway" if SmartScreen appears)</li>
+            <li><strong>Click</strong> "START SERVICE" to begin mouse jiggling</li>
+            <li><strong>Minimize</strong> to system tray to run in background</li>
+        </ol>
 
         <div class="note">
-            <strong>💡 Intended Use Cases:</strong>
-            <ul style="margin-top: 10px;">
-                <li>Long-running downloads or file transfers</li>
-                <li>Remote desktop sessions that time out</li>
-                <li>Monitoring dashboards that need to stay visible</li>
-                <li>Presentations or demos</li>
-                <li>Keeping systems awake during overnight processes</li>
-            </ul>
+            <strong>✓ No Installation Required:</strong> jMouse is a standalone executable. Just run it from anywhere!
         </div>
 
-        <h2>🚀 Getting Started</h2>
+        <h2>⚙️ Main Features</h2>
 
-        <div class="step">
-            <h3><span class="step-number">1</span>Download jMouse</h3>
-            <p>
-                Download <code>jMouse.exe</code> from the official source: <a href="https://jbeck.app">jbeck.app</a>
-            </p>
-        </div>
-
-        <div class="step">
-            <h3><span class="step-number">2</span>Run the Application</h3>
-            <p>
-                Double-click <code>jMouse.exe</code> to launch. No installation required — it's a standalone executable.
-            </p>
-            <div class="warning">
-                <strong>⚠️ Windows SmartScreen Warning:</strong> On first launch, Windows may show a warning because the app is not code-signed. Click <strong>"More info"</strong> → <strong>"Run anyway"</strong> to proceed.
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>🖱️ Smart Jiggling</h4>
+                <p>Randomized 45-75 second intervals with variable movement patterns (jitter, orbital, slide) for natural behavior.</p>
+            </div>
+            <div class="feature-card">
+                <h4>💤 Idle Detection</h4>
+                <p>Only jiggles after 30 seconds of inactivity. Won't interfere with your active work.</p>
+            </div>
+            <div class="feature-card">
+                <h4>⏰ Session Limits</h4>
+                <p>Set a specific time to automatically stop the service (e.g., 5:00 PM).</p>
+            </div>
+            <div class="feature-card">
+                <h4>📅 Daily Routines</h4>
+                <p>Configure recurring weekly schedules with different times for each day (Mon-Sun).</p>
+            </div>
+            <div class="feature-card">
+                <h4>⚡ Global Hotkeys</h4>
+                <p>Control jMouse from anywhere with Ctrl+Alt+E (toggle), M (minimize), Q (quit).</p>
+            </div>
+            <div class="feature-card">
+                <h4>🚀 Windows Startup</h4>
+                <p>Automatically launch on Windows boot with optional auto-enable or routine scheduling.</p>
             </div>
         </div>
 
-        <div class="step">
-            <h3><span class="step-number">3</span>Enable jMouse</h3>
-            <p>
-                Click the green <strong>"Enable"</strong> button. jMouse will immediately start simulating activity every 60 seconds.
-            </p>
-        </div>
+        <h2>🎮 Basic Controls</h2>
 
-        <h2>🎯 Features & How to Use</h2>
-
-        <h3>⏰ Scheduled End Time</h3>
-        <p>
-            You can configure jMouse to automatically disable itself at a specific time:
-        </p>
-        <ol>
-            <li>Check the <strong>"Scheduled End Time"</strong> checkbox</li>
-            <li>Set your desired time using the hour, minute, and AM/PM dropdowns</li>
-            <li>Click <strong>"Enable"</strong></li>
-        </ol>
-        <p>
-            When the scheduled time arrives, jMouse will automatically disable itself and reset the schedule to default (5:00 PM).
-        </p>
-
-        <div class="note">
-            <strong>💡 Tip:</strong> The schedule cannot be changed while jMouse is enabled. Disable it first if you need to adjust the time.
-        </div>
-
-        <h3>🔔 System Tray Mode</h3>
-        <p>
-            You can minimize jMouse to the system tray (near your clock):
-        </p>
-        <ol>
-            <li>Click the <strong>minimize button</strong> (—) in the window's title bar</li>
-            <li>Choose <strong>"Yes (System Tray)"</strong> when prompted</li>
-            <li>jMouse will continue running in the background</li>
-        </ol>
-        <p>
-            To restore the window, double-click the jMouse icon in the system tray.
-        </p>
-
-        <div class="note">
-            <strong>💡 Right-click the tray icon</strong> to quickly enable/disable jMouse or exit the app without opening the main window.
-        </div>
-
-        <h3>🛑 Disabling jMouse</h3>
-        <p>
-            Click the red <strong>"Disable"</strong> button to stop activity simulation. The button will swap back to green "Enable" when disabled.
-        </p>
-
-        <h3>❌ Closing jMouse</h3>
-        <p>
-            When you click the <strong>X button</strong>, a confirmation dialog appears:
-        </p>
+        <h3>Main Window</h3>
         <ul>
-            <li><strong>Yes</strong> (green) — Quit the app completely</li>
-            <li><strong>No</strong> (red) — Cancel and return to the app</li>
+            <li><strong>START SERVICE</strong> - Begin mouse jiggling</li>
+            <li><strong>STOP SERVICE</strong> - Stop mouse jiggling (shows confirmation if routine is active)</li>
+            <li><strong>Apply Session Limit</strong> - Enable checkbox and set time to auto-stop</li>
+            <li><strong>⚙️ Advanced Settings</strong> - Configure routines, startup, and preferences</li>
         </ul>
 
-        <h2>⚙️ How It Works</h2>
-        <p>
-            jMouse operates by sending low-level input events to Windows every 60 seconds:
-        </p>
+        <h3>Global Hotkeys</h3>
         <ul>
-            <li><strong>Mouse movement:</strong> Moves the cursor by a random offset of ±5 pixels (barely noticeable)</li>
-            <li><strong>F15 keypress:</strong> Simulates pressing the F15 key (a virtual key that has no effect on most applications)</li>
+            <li><span class="key">Ctrl</span> + <span class="key">Alt</span> + <span class="key">E</span> - Toggle service on/off</li>
+            <li><span class="key">Ctrl</span> + <span class="key">Alt</span> + <span class="key">M</span> - Minimize to system tray</li>
+            <li><span class="key">Ctrl</span> + <span class="key">Alt</span> + <span class="key">Q</span> - Quit application</li>
         </ul>
-        <p>
-            These inputs trick Windows into thinking you're actively using the computer, preventing idle timeouts, screen locks, and sleep mode.
-        </p>
+
+        <h3>System Tray</h3>
+        <ul>
+            <li><strong>Single-click</strong> tray icon - Restore window</li>
+            <li><strong>Right-click</strong> tray icon - Show menu (Restore/Exit)</li>
+        </ul>
+
+        <h2>📅 Setting Up Daily Routines</h2>
+
+        <h3>Step 1: Open Advanced Settings</h3>
+        <p>Click the <strong>⚙️ Advanced Settings</strong> button on the main window.</p>
+
+        <h3>Step 2: Enable Recurring Routine</h3>
+        <ol>
+            <li>Check "Enable Recurring Routine"</li>
+            <li>Click "CONFIGURE ROUTINE" button</li>
+        </ol>
+
+        <h3>Step 3: Configure Days & Times</h3>
+        <p>In the Routine Configuration dialog:</p>
+        <ul>
+            <li>Check the days you want the routine active (Mon-Sun)</li>
+            <li>Set start and stop times for each day</li>
+            <li>Click "APPLY ROUTINE CHANGES" when done (or Cancel to discard)</li>
+        </ul>
+
+        <h3>Step 4: Save Settings</h3>
+        <p>Click "APPLY CHANGES" in Advanced Settings to save your routine.</p>
+
+        <div class="note">
+            <strong>💡 Example Routine:</strong><br>
+            Monday-Friday: 9:00 AM - 5:00 PM<br>
+            Weekend: Disabled<br>
+            <br>
+            jMouse will automatically start at 9 AM and stop at 5 PM on weekdays, without any manual intervention!
+        </div>
+
+        <h3>Manual Override</h3>
+        <p>Even with a routine active, you can:</p>
+        <ul>
+            <li><strong>Manually start</strong> outside scheduled hours (use START SERVICE button)</li>
+            <li><strong>Manually stop</strong> during scheduled hours (shows pause confirmation)</li>
+            <li><strong>Session limits</strong> take priority over routines</li>
+        </ul>
 
         <div class="warning">
-            <strong>⚠️ Important:</strong> jMouse does <em>not</em> prevent you from manually locking your computer (Win+L) or putting it to sleep. It only prevents <em>automatic</em> idle timeouts.
+            <strong>⚠️ Pause Behavior:</strong> If you manually stop the service during routine hours, it will pause for the rest of the day. The routine will resume automatically the next day during scheduled hours.
         </div>
 
-        <h2>🔒 Security & Privacy</h2>
-        <p>
-            jMouse is a standalone application that:
-        </p>
-        <ul>
-            <li>✅ <strong>Does not</strong> access the internet</li>
-            <li>✅ <strong>Does not</strong> read or write files (except a small settings.json for preferences)</li>
-            <li>✅ <strong>Does not</strong> collect any data</li>
-            <li>✅ <strong>Does not</strong> modify system settings or registry</li>
-            <li>✅ Runs entirely locally on your machine</li>
-        </ul>
+        <h2>🚀 Windows Startup Options</h2>
+
+        <p>In Advanced Settings, you can configure three startup modes:</p>
+
+        <h3>1. Open jMouse Only</h3>
+        <p>App launches on Windows startup but service stays off. You manually start it when needed.</p>
+
+        <h3>2. Open and Auto-Enable</h3>
+        <p>App launches on startup AND automatically starts the service (no session limit).</p>
+
+        <h3>3. Use Routine Schedule</h3>
+        <p>App launches on startup and follows your configured daily routine. Starts/stops automatically based on your schedule.</p>
 
         <div class="note">
-            <strong>🛡️ Antivirus False Positives:</strong> Some antivirus software may flag jMouse because it uses PyAutoGUI to simulate input. This is a known false positive. jMouse contains no malware. Always download from the official source: <a href="https://jbeck.app">jbeck.app</a>
+            <strong>💡 Recommended:</strong> If you have a consistent work schedule, use <strong>Routine Schedule</strong> mode. Set it up once and forget about it!
         </div>
 
-        <h2>📝 Settings File</h2>
-        <p>
-            jMouse stores a single preference file at:
-        </p>
-        <code>C:\Users\[YourUsername]\AppData\Roaming\jMouse\settings.json</code>
-        <p style="margin-top: 15px;">
-            This file only contains your minimize-to-tray preference. You can safely delete it to reset jMouse to defaults.
-        </p>
+        <h2>⏰ Session Limits vs Routines</h2>
 
-        <h2>🆘 Troubleshooting</h2>
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>Session Limit</th>
+                <th>Daily Routine</th>
+            </tr>
+            <tr>
+                <td>Purpose</td>
+                <td>One-time auto-stop</td>
+                <td>Recurring schedule</td>
+            </tr>
+            <tr>
+                <td>Configuration</td>
+                <td>Checkbox + time picker on main window</td>
+                <td>Advanced Settings → Configure Routine</td>
+            </tr>
+            <tr>
+                <td>Auto-Start</td>
+                <td>No (manual only)</td>
+                <td>Yes (at scheduled times)</td>
+            </tr>
+            <tr>
+                <td>Auto-Stop</td>
+                <td>Yes (at specified time)</td>
+                <td>Yes (at scheduled end time)</td>
+            </tr>
+            <tr>
+                <td>Priority</td>
+                <td><strong>Higher</strong></td>
+                <td>Lower</td>
+            </tr>
+        </table>
 
-        <h3>Problem: jMouse doesn't keep Teams/Slack active</h3>
-        <p>
-            <strong>Solution:</strong> Some apps (like Teams) have their own inactivity detection that may override system-level activity. jMouse works for most cases, but presence detection varies by app.
-        </p>
+        <div class="note">
+            <strong>💡 Priority Rule:</strong> Session limits always take priority. If you have a routine AND a session limit, the session limit will stop the service even if the routine is still active.
+        </div>
 
-        <h3>Problem: Antivirus blocked or quarantined jMouse</h3>
-        <p>
-            <strong>Solution:</strong> Add jMouse.exe to your antivirus exclusion list. The detection is a false positive due to PyAutoGUI and PyInstaller.
-        </p>
+        <h2>🎨 Status Indicators</h2>
 
-        <h3>Problem: Windows SmartScreen blocks jMouse</h3>
-        <p>
-            <strong>Solution:</strong> Click <strong>"More info"</strong> → <strong>"Run anyway"</strong>. The app is not code-signed, which triggers SmartScreen warnings for unsigned executables.
-        </p>
+        <ul>
+            <li><strong>🔴 SYSTEM IDLE</strong> (Red) - Service is stopped</li>
+            <li><strong>🟢 SERVICE ACTIVE</strong> (Green) - Service is running and jiggling</li>
+            <li><strong>🟡 USER ACTIVE</strong> (Gold) - You're using the computer, waiting to resume jiggling</li>
+            <li><strong>🟡 MOVING...</strong> (Gold) - Currently executing a jiggle movement</li>
+        </ul>
 
-        <h3>Problem: jMouse stops working after a while</h3>
-        <p>
-            <strong>Solution:</strong> Check if Windows Defender or your antivirus quarantined the app. Also ensure jMouse wasn't accidentally disabled via the tray icon.
-        </p>
+        <h2>🔧 Troubleshooting</h2>
 
-        <h2>⚖️ Legal & Ethical Use</h2>
+        <h3>Icon Not Appearing</h3>
+        <p>The icon should be bundled in jMouse.exe. If icons are missing on dialogs, ensure you're using v1.2.9 which has improved icon loading.</p>
+
+        <h3>SmartScreen Warning</h3>
+        <p>This is normal for unsigned executables. Click "More info" → "Run anyway". The app is safe!</p>
+
+        <h3>Hotkeys Not Working</h3>
+        <p>Some apps (games, other utilities) might capture hotkeys first. Try closing other apps.</p>
+
+        <h3>Routine Not Starting Automatically</h3>
+        <p>Check:</p>
+        <ul>
+            <li>Is "Enable Recurring Routine" checked in Advanced Settings?</li>
+            <li>Did you click "APPLY CHANGES" to save?</li>
+            <li>Is the current time within your scheduled hours?</li>
+            <li>Did you manually stop the service today? (Creates a kill block until midnight)</li>
+        </ul>
+
+        <h3>Service Stops Unexpectedly</h3>
+        <p>Possible causes:</p>
+        <ul>
+            <li>Session limit reached</li>
+            <li>Routine schedule ended</li>
+            <li>App was closed or crashed</li>
+        </ul>
+
+        <h2>💾 Settings & Data</h2>
+
+        <h3>Settings File</h3>
+        <p>Stored in: <code>jmouse_settings.json</code> (same folder as jMouse.exe)</p>
+        <p>Contains:</p>
+        <ul>
+            <li>Routine schedules</li>
+            <li>Startup preferences</li>
+            <li>Minimize behavior</li>
+        </ul>
+
+        <h3>Windows Registry</h3>
+        <p>If startup is enabled, jMouse writes to:</p>
+        <code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run</code>
+        <p style="margin-top: 10px;">This is user-level only (no admin required) and can be disabled anytime in Advanced Settings.</p>
+
+        <h2>🔐 Privacy & Security</h2>
+
+        <ul>
+            <li><strong>No network access:</strong> jMouse never connects to the internet</li>
+            <li><strong>No data collection:</strong> Nothing is logged, recorded, or transmitted</li>
+            <li><strong>Local only:</strong> All activity stays on your machine</li>
+            <li><strong>Input monitoring:</strong> Used only for idle detection and hotkeys (not recorded)</li>
+        </ul>
+
+        <h2>⚖️ Responsible Use</h2>
+
         <div class="warning">
-            <strong>⚠️ Read the Terms & Conditions</strong>
-            <p style="margin-top: 10px;">
-                Before using jMouse, review the full Terms & Conditions available in the app. Key points:
-            </p>
+            <strong>⚠️ Important:</strong> jMouse is a tool that can be misused. You are responsible for:
             <ul style="margin-top: 10px;">
-                <li>Use at your own risk — the author accepts no liability</li>
-                <li>Verify compliance with your workplace IT and HR policies</li>
-                <li>Do not use jMouse to falsify attendance or deceive employers</li>
-                <li>Misuse is the sole responsibility of the user</li>
+                <li>Ensuring compliance with your employer's policies</li>
+                <li>Not misrepresenting your work status or availability</li>
+                <li>Understanding the risks of automated activity tools</li>
             </ul>
+            <p style="margin-top: 10px;">See the <a href="../software.html">Terms & Conditions</a> for full details.</p>
         </div>
 
-        <h2>📞 Support</h2>
-        <p>
-            For questions, bug reports, or feedback, visit:
-        </p>
-        <p style="margin-top: 10px;">
-            <strong><a href="https://jbeck.app">jbeck.app</a></strong>
-        </p>
+        <h2>❓ Need More Help?</h2>
 
-        <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem;">
-            <p>jMouse v1.0.1 • © 2025 jbeck.app</p>
+        <ul>
+            <li><a href="FAQ.html">Check the FAQ</a></li>
+            <li><a href="../software.html">View Changelog</a> for version history</li>
+            <li><a href="../software.html">Read Terms & Conditions</a></li>
+        </ul>
+
+        <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--border);">
+            <p style="color: var(--text-muted);">jMouse v1.2.9 • Built by <a href="../software.html">jbeck.app</a> • Use responsibly</p>
         </div>
     </div>
 </body>

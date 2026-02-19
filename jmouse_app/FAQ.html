@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>jMouse FAQ</title>
+    <title>jMouse v1.2.9 FAQ</title>
     <style>
         :root {
             --bg-dark: #0a0e17;
@@ -11,7 +11,7 @@
             --border: #1e2330;
             --border-glow: #2a3244;
             --accent-green: #00ff88;
-            --accent-green-dim: #00cc6f;
+            --accent-gold: #ffd500;
             --text-primary: #e8ecf4;
             --text-secondary: #8b95a8;
             --text-muted: #4a5568;
@@ -59,58 +59,34 @@
             color: var(--accent-green);
             margin-bottom: 10px;
         }
-        .subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-        }
-        .category {
-            margin: 40px 0;
-        }
-        .category-title {
-            font-size: 1.3rem;
-            color: var(--accent-green);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border);
+        .version {
+            font-size: 0.9rem;
+            color: var(--text-muted);
         }
         .faq-item {
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--bg-dark);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 10px;
             padding: 25px;
             margin-bottom: 20px;
-            transition: all 0.3s;
         }
-        .faq-item:hover {
-            border-color: var(--border-glow);
-            transform: translateX(5px);
-        }
-        .question {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: flex-start;
-        }
-        .q-icon {
+        .faq-question {
+            font-size: 1.2rem;
             color: var(--accent-green);
-            margin-right: 10px;
-            font-weight: bold;
-            flex-shrink: 0;
+            margin-bottom: 15px;
+            font-weight: 600;
         }
-        .answer {
+        .faq-answer {
             color: var(--text-secondary);
-            padding-left: 30px;
         }
-        .answer p {
+        .faq-answer p {
+            margin-bottom: 15px;
+        }
+        .faq-answer ul {
+            margin: 15px 0 15px 30px;
+        }
+        .faq-answer li {
             margin-bottom: 10px;
-        }
-        .answer ul, .answer ol {
-            margin: 10px 0 10px 20px;
-        }
-        .answer li {
-            margin-bottom: 8px;
         }
         code {
             background: rgba(0, 255, 136, 0.1);
@@ -120,9 +96,6 @@
             color: var(--accent-green);
             font-size: 0.9em;
         }
-        strong {
-            color: var(--accent-green);
-        }
         a {
             color: var(--accent-green);
             text-decoration: none;
@@ -130,444 +103,164 @@
         a:hover {
             text-decoration: underline;
         }
-        .warning {
-            background: rgba(255, 213, 0, 0.1);
-            border-left: 4px solid #ffd500;
-            padding: 12px 15px;
-            margin: 10px 0;
-            border-radius: 4px;
-            color: var(--text-secondary);
-        }
-        .note {
-            background: rgba(0, 255, 136, 0.05);
-            border-left: 4px solid var(--accent-green);
-            padding: 12px 15px;
-            margin: 10px 0;
-            border-radius: 4px;
-            color: var(--text-secondary);
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <a href="https://jbeck.app/software.html" class="back-link">← Back to Software</a>
-            <h1>❓ jMouse FAQ</h1>
-            <p class="subtitle">Frequently Asked Questions</p>
+            <a href="../software.html" class="back-link">← Back to Software</a>
+            <h1>jMouse FAQ</h1>
+            <p class="version">Version 1.2.9 • February 2026</p>
         </div>
 
-        <!-- GENERAL -->
-        <div class="category">
-            <h2 class="category-title">📌 General</h2>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>What does jMouse do?</span>
-                </div>
-                <div class="answer">
-                    <p>jMouse prevents your computer from going idle by simulating subtle mouse movements (±5 pixels) and F15 key presses every 60 seconds. This keeps your screen from locking and maintains your "active" status in apps like Microsoft Teams, Slack, and Zoom.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Is jMouse free?</span>
-                </div>
-                <div class="answer">
-                    <p>Yes, jMouse is completely free to download and use.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Do I need to install Python to use jMouse?</span>
-                </div>
-                <div class="answer">
-                    <p>No! jMouse is a standalone executable (<code>jMouse.exe</code>) with Python bundled inside. Just download and run — no installation required.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Where can I download jMouse?</span>
-                </div>
-                <div class="answer">
-                    <p>Always download from the official source: <strong><a href="https://jbeck.app">jbeck.app</a></strong></p>
-                    <div class="warning">
-                        <strong>⚠️ Warning:</strong> Do not download jMouse from third-party websites, file-sharing platforms, or unofficial sources. These copies may have been modified or contain malware.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Does jMouse work on Mac or Linux?</span>
-                </div>
-                <div class="answer">
-                    <p>No, jMouse is Windows-only. It's built with Windows-specific libraries and won't run on macOS or Linux.</p>
-                </div>
+        <div class="faq-item">
+            <div class="faq-question">Q: What does jMouse do?</div>
+            <div class="faq-answer">
+                <p>jMouse prevents your computer from going idle by simulating subtle mouse movements and pressing the F15 key at randomized 45-75 second intervals. This keeps your system awake, prevents screensavers, and maintains "active" status in apps like Microsoft Teams.</p>
             </div>
         </div>
 
-        <!-- SECURITY & PRIVACY -->
-        <div class="category">
-            <h2 class="category-title">🔒 Security & Privacy</h2>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Is jMouse safe? Does it contain malware?</span>
-                </div>
-                <div class="answer">
-                    <p>Yes, jMouse is safe when downloaded from <strong>jbeck.app</strong>. It contains no malware, spyware, or viruses.</p>
-                    <p>jMouse:</p>
-                    <ul>
-                        <li>Does not access the internet</li>
-                        <li>Does not collect or transmit any data</li>
-                        <li>Does not read or write files (except a small settings.json)</li>
-                        <li>Does not modify system settings or registry</li>
-                        <li>Runs entirely locally on your machine</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Why is my antivirus flagging jMouse?</span>
-                </div>
-                <div class="answer">
-                    <p>This is a <strong>false positive</strong>. Some antivirus software flags jMouse because:</p>
-                    <ul>
-                        <li>It uses <strong>PyAutoGUI</strong> to simulate mouse/keyboard input (a common trigger)</li>
-                        <li>It's packaged with <strong>PyInstaller</strong> (another common trigger)</li>
-                        <li>It's not code-signed with an expensive certificate</li>
-                    </ul>
-                    <p><strong>Solution:</strong> Add <code>jMouse.exe</code> to your antivirus exclusion list.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Why does Windows SmartScreen block jMouse?</span>
-                </div>
-                <div class="answer">
-                    <p>Windows SmartScreen blocks unsigned executables from unknown publishers. This is a built-in Windows security feature.</p>
-                    <p><strong>How to bypass:</strong></p>
-                    <ol>
-                        <li>Click <strong>"More info"</strong></li>
-                        <li>Click <strong>"Run anyway"</strong></li>
-                    </ol>
-                    <p>jMouse is safe when downloaded from <strong>jbeck.app</strong>. The warning appears because the app is not code-signed (code-signing certificates cost $300–$500/year).</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Can my employer detect jMouse?</span>
-                </div>
-                <div class="answer">
-                    <p>It depends on your company's monitoring tools. jMouse is designed to be subtle, but:</p>
-                    <ul>
-                        <li><strong>Standard monitoring:</strong> Unlikely to detect. The mouse movements are tiny (±5px) and the F15 key is invisible.</li>
-                        <li><strong>Advanced monitoring:</strong> IT departments with specialized tools <em>could</em> detect automated input patterns if they're specifically looking for it.</li>
-                    </ul>
-                    <div class="warning">
-                        <strong>⚠️ Important:</strong> Always verify that jMouse complies with your workplace IT and HR policies before use. Using it to falsify attendance or deceive your employer is misuse.
-                    </div>
-                </div>
+        <div class="faq-item">
+            <div class="faq-question">Q: Is jMouse detectable?</div>
+            <div class="faq-answer">
+                <p>jMouse uses several stealth features:</p>
+                <ul>
+                    <li><strong>Randomized intervals</strong> (45-75s instead of fixed timing)</li>
+                    <li><strong>Variable movement patterns</strong> (jitter, orbital, slide)</li>
+                    <li><strong>Idle detection</strong> (only moves when you're inactive for 30s)</li>
+                    <li><strong>F15 key</strong> (function key unlikely to be logged)</li>
+                </ul>
+                <p>However, sophisticated monitoring tools could potentially detect any automation. Use responsibly and understand the risks.</p>
             </div>
         </div>
 
-        <!-- USAGE & FEATURES -->
-        <div class="category">
-            <h2 class="category-title">⚙️ Usage & Features</h2>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>How often does jMouse move the mouse?</span>
-                </div>
-                <div class="answer">
-                    <p>Every <strong>60 seconds</strong>. This interval is fixed and cannot be changed.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Will I notice the mouse moving?</span>
-                </div>
-                <div class="answer">
-                    <p>Barely. The movements are only ±5 pixels in a random direction — it's intentionally subtle to avoid disrupting your work.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Can I change the movement interval (make it faster or slower)?</span>
-                </div>
-                <div class="answer">
-                    <p>No, the 60-second interval is hardcoded. This was a design choice to keep the app simple and prevent misuse.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Does jMouse prevent my computer from sleeping?</span>
-                </div>
-                <div class="answer">
-                    <p>It prevents <strong>automatic</strong> sleep/idle timeouts triggered by inactivity. However:</p>
-                    <ul>
-                        <li>✅ Prevents: Automatic screen lock, screensaver, idle sleep</li>
-                        <li>❌ Does not prevent: Manual lock (Win+L), closing laptop lid, power button sleep</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>What is the F15 key?</span>
-                </div>
-                <div class="answer">
-                    <p>F15 is a virtual key that exists in Windows but is not present on most keyboards. Pressing it has no effect on applications, making it perfect for simulating activity without disrupting your work.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Can I schedule jMouse to turn off automatically?</span>
-                </div>
-                <div class="answer">
-                    <p>Yes! Enable the <strong>"Scheduled End Time"</strong> checkbox and set your desired time. jMouse will automatically disable itself when that time arrives.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Can I run jMouse in the background?</span>
-                </div>
-                <div class="answer">
-                    <p>Yes. Minimize the window and choose <strong>"Yes (System Tray)"</strong>. jMouse will continue running in the system tray (near your clock). Double-click the tray icon to restore the window.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Does jMouse keep me "active" in Microsoft Teams?</span>
-                </div>
-                <div class="answer">
-                    <p>Usually, yes. jMouse simulates system-level activity, which prevents most apps (including Teams) from marking you as "Away". However:</p>
-                    <ul>
-                        <li>Some apps have their own inactivity detection that may override system activity</li>
-                        <li>Results may vary depending on your Teams settings and organization policies</li>
-                    </ul>
-                    <p>jMouse works for <em>most</em> users, but it's not guaranteed to work in 100% of cases.</p>
-                </div>
+        <div class="faq-item">
+            <div class="faq-question">Q: How do I set up a daily routine?</div>
+            <div class="faq-answer">
+                <p>To configure automatic scheduling:</p>
+                <ul>
+                    <li>Click <strong>⚙️ Advanced Settings</strong></li>
+                    <li>Check <strong>"Enable Recurring Routine"</strong></li>
+                    <li>Click <strong>"CONFIGURE ROUTINE"</strong></li>
+                    <li>Set start/stop times for each day (Mon-Sun)</li>
+                    <li>Click <strong>"APPLY ROUTINE CHANGES"</strong></li>
+                    <li>Click <strong>"APPLY CHANGES"</strong> to save</li>
+                </ul>
+                <p>jMouse will now automatically start and stop based on your schedule!</p>
             </div>
         </div>
 
-        <!-- TROUBLESHOOTING -->
-        <div class="category">
-            <h2 class="category-title">🛠️ Troubleshooting</h2>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>jMouse isn't working. My screen still locks.</span>
-                </div>
-                <div class="answer">
-                    <p>Try the following:</p>
-                    <ol>
-                        <li>Make sure jMouse is <strong>enabled</strong> (the status should show "Enabled" in green)</li>
-                        <li>Check if your antivirus quarantined jMouse</li>
-                        <li>Verify that Windows didn't block the app from running</li>
-                        <li>Restart jMouse and re-enable it</li>
-                    </ol>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>jMouse stopped working after a while.</span>
-                </div>
-                <div class="answer">
-                    <p>This usually happens if:</p>
-                    <ul>
-                        <li>Your antivirus quarantined the app</li>
-                        <li>The scheduled end time was reached</li>
-                        <li>You accidentally disabled it via the system tray</li>
-                    </ul>
-                    <p>Check the system tray icon and verify jMouse is still running and enabled.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>The app won't launch. Nothing happens when I double-click.</span>
-                </div>
-                <div class="answer">
-                    <p>Check your antivirus. It may have blocked or deleted the file. Restore jMouse from quarantine and add it to your exclusion list.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Can I delete the settings.json file?</span>
-                </div>
-                <div class="answer">
-                    <p>Yes. The file is located at:</p>
-                    <code style="display: block; margin: 10px 0;">C:\Users\[YourUsername]\AppData\Roaming\jMouse\settings.json</code>
-                    <p>Deleting it will reset jMouse to default settings (the only thing stored is your minimize-to-tray preference).</p>
-                </div>
+        <div class="faq-item">
+            <div class="faq-question">Q: What are the global hotkeys?</div>
+            <div class="faq-answer">
+                <ul>
+                    <li><code>Ctrl+Alt+E</code> - Toggle service on/off</li>
+                    <li><code>Ctrl+Alt+M</code> - Minimize to system tray</li>
+                    <li><code>Ctrl+Alt+Q</code> - Quit application</li>
+                </ul>
+                <p>These work even when jMouse is minimized!</p>
             </div>
         </div>
 
-        <!-- LEGAL & ETHICAL -->
-        <div class="category">
-            <h2 class="category-title">⚖️ Legal & Ethical</h2>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Is it legal to use jMouse?</span>
-                </div>
-                <div class="answer">
-                    <p>The software itself is legal. However, <strong>how you use it</strong> may violate your employer's policies or terms of service.</p>
-                    <div class="warning">
-                        <strong>⚠️ Important:</strong> You are responsible for ensuring jMouse complies with your workplace IT policies, HR policies, and employment agreement. Using it to falsify attendance or deceive your employer is misuse and may result in disciplinary action.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Can I get in trouble for using jMouse at work?</span>
-                </div>
-                <div class="answer">
-                    <p>Possibly. It depends on your company's policies. Some organizations explicitly prohibit the use of tools that simulate activity.</p>
-                    <p><strong>Before using jMouse at work:</strong></p>
-                    <ul>
-                        <li>Review your company's IT and HR policies</li>
-                        <li>Check your employment agreement</li>
-                        <li>When in doubt, ask your IT department or manager</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>What are the risks of using jMouse?</span>
-                </div>
-                <div class="answer">
-                    <p>Review the <strong>Terms & Conditions</strong> in the app for a full risk assessment. Key risks include:</p>
-                    <ul>
-                        <li>Workplace policy violation</li>
-                        <li>False presence indication (showing as active when you're not)</li>
-                        <li>Antivirus false positives</li>
-                        <li>Misuse/abuse potential</li>
-                    </ul>
-                </div>
+        <div class="faq-item">
+            <div class="faq-question">Q: Can I run jMouse on Windows startup?</div>
+            <div class="faq-answer">
+                <p>Yes! In Advanced Settings, check "Run on Windows startup" and choose a mode:</p>
+                <ul>
+                    <li><strong>Open jMouse only</strong> - App launches, service stays off</li>
+                    <li><strong>Open and auto-enable</strong> - App launches and starts service immediately</li>
+                    <li><strong>Use routine schedule</strong> - App follows your daily routine (recommended)</li>
+                </ul>
             </div>
         </div>
 
-        <!-- TECHNICAL -->
-        <div class="category">
-            <h2 class="category-title">💻 Technical</h2>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>What technologies does jMouse use?</span>
-                </div>
-                <div class="answer">
-                    <ul>
-                        <li><strong>Python 3:</strong> Core language</li>
-                        <li><strong>CustomTkinter:</strong> Modern dark UI</li>
-                        <li><strong>PyAutoGUI:</strong> Mouse/keyboard simulation</li>
-                        <li><strong>pystray:</strong> System tray integration</li>
-                        <li><strong>PyInstaller:</strong> Bundles everything into a single .exe</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Is jMouse open source?</span>
-                </div>
-                <div class="answer">
-                    <p>No, jMouse is closed source.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>How large is the jMouse.exe file?</span>
-                </div>
-                <div class="answer">
-                    <p>Approximately 30–50 MB. This is normal for PyInstaller bundles, which include the entire Python runtime and all dependencies.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Can I run multiple instances of jMouse?</span>
-                </div>
-                <div class="answer">
-                    <p>Technically yes, but there's no benefit. One instance is sufficient to keep your system awake.</p>
-                </div>
+        <div class="faq-item">
+            <div class="faq-question">Q: What happens if I manually stop during routine hours?</div>
+            <div class="faq-answer">
+                <p>You'll see a confirmation dialog. If you proceed, jMouse will pause for the rest of the day. The routine will automatically resume tomorrow during scheduled hours. This prevents the app from immediately restarting after you manually stop it.</p>
             </div>
         </div>
 
-        <!-- CONTACT -->
-        <div class="category">
-            <h2 class="category-title">📞 Contact & Support</h2>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Where can I get help or report a bug?</span>
-                </div>
-                <div class="answer">
-                    <p>Visit <strong><a href="https://jbeck.app">jbeck.app</a></strong> and use the contact form.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="question">
-                    <span class="q-icon">Q:</span>
-                    <span>Will there be updates or new features?</span>
-                </div>
-                <div class="answer">
-                    <p>Maybe! Check <strong><a href="https://jbeck.app">jbeck.app</a></strong> for announcements. Updates (if any) will be posted there.</p>
-                </div>
+        <div class="faq-item">
+            <div class="faq-question">Q: What's the difference between Session Limit and Daily Routine?</div>
+            <div class="faq-answer">
+                <p><strong>Session Limit:</strong> One-time auto-stop at a specific time (e.g., "stop at 5 PM today"). Set on the main window.</p>
+                <p><strong>Daily Routine:</strong> Recurring weekly schedule (e.g., "9 AM - 5 PM Mon-Fri, every week"). Set in Advanced Settings.</p>
+                <p>Session limits take priority over routines.</p>
             </div>
         </div>
 
-        <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem;">
-            <p>Still have questions? Visit <a href="https://jbeck.app">jbeck.app</a></p>
-            <p style="margin-top: 10px;">jMouse v1.0.1 • © 2025 jbeck.app</p>
+        <div class="faq-item">
+            <div class="faq-question">Q: Does jMouse work when minimized?</div>
+            <div class="faq-answer">
+                <p>Yes! When minimized to the system tray, jMouse continues running in the background. Click the tray icon to restore the window, or use hotkeys to control it.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: Does jMouse require Python?</div>
+            <div class="faq-answer">
+                <p>No! jMouse.exe is a standalone executable with everything bundled. Just download and run—no installation or dependencies required.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: Where are my settings stored?</div>
+            <div class="faq-answer">
+                <p>Settings are saved in <code>jmouse_settings.json</code> in the same folder as jMouse.exe. This includes your routine schedules, startup preferences, and minimize behavior.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: Does jMouse collect any data?</div>
+            <div class="faq-answer">
+                <p>No. jMouse never connects to the internet and doesn't log, record, or transmit anything. All monitoring (idle detection, hotkeys) happens locally and nothing is stored.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: Why does SmartScreen warn me?</div>
+            <div class="faq-answer">
+                <p>Windows SmartScreen shows warnings for unsigned executables. jMouse is safe but not code-signed (signing certificates cost $100-500/year). Click "More info" → "Run anyway" to proceed.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: Can I get fired for using jMouse?</div>
+            <div class="faq-answer">
+                <p>Possibly, yes. Using automation tools to misrepresent your availability or work status may violate your employer's policies and could result in disciplinary action or termination. You are solely responsible for ensuring compliance with your workplace policies. See the <a href="../software.html">Terms & Conditions</a> for full details.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: Is jMouse legal?</div>
+            <div class="faq-answer">
+                <p>jMouse is legal software. However, how you USE it could violate your employment contract, company policies, or third-party terms of service. It's your responsibility to use it ethically and in compliance with applicable policies.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: Can jMouse be used for legitimate purposes?</div>
+            <div class="faq-answer">
+                <p>Yes! Legitimate use cases include:</p>
+                <ul>
+                    <li>Preventing sleep during long downloads or renders</li>
+                    <li>Keeping remote sessions active during extended operations</li>
+                    <li>Maintaining availability during legitimate break periods</li>
+                    <li>Preventing screensaver during presentations or monitoring</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: Where can I get support?</div>
+            <div class="faq-answer">
+                <p>Check the <a href="GUIDE.html">User Guide</a> for detailed documentation. For additional questions, visit <a href="../software.html">jbeck.app/software</a>.</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--border);">
+            <p style="color: var(--text-muted);">jMouse v1.2.9 • Built by <a href="../software.html">jbeck.app</a> • Use responsibly</p>
         </div>
     </div>
 </body>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jMouse - Changelog</title>
+    <style>
+        :root {
+            --bg-dark: #0a0e17;
+            --bg-card: #141824;
+            --border: #1e2330;
+            --border-glow: #2a3244;
+            --accent-green: #00ff88;
+            --accent-green-dim: #00cc6f;
+            --text-primary: #e8ecf4;
+            --text-secondary: #8b95a8;
+            --text-muted: #4a5568;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 50px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid var(--accent-green);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--accent-green);
+            border-radius: 8px;
+            color: var(--accent-green);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .back-link:hover {
+            background: rgba(0, 255, 136, 0.2);
+            transform: translateX(-5px);
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: var(--accent-green);
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        .version-block {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .version-block h2 {
+            color: var(--accent-green);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        .version-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        .category {
+            margin-top: 20px;
+        }
+        .category h3 {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .category ul {
+            margin-left: 25px;
+        }
+        .category li {
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="../software.html" class="back-link">← Back to Software</a>
+            <h1>📝 jMouse History</h1>
+            <p class="subtitle">Version History & Updates</p>
+        </div>
+
+        <!-- v1.2.9 -->
+        <div class="version-block">
+            <h2>v1.2.9</h2>
+            <p class="version-date">February 2026</p>
+            
+            <div class="category">
+                <h3>UI Improvements</h3>
+                <ul>
+                    <li>Advanced Settings button with gear icon</li>
+                    <li>Smart exit dialog with minimize option when service is active</li>
+                    <li>Pause routine confirmation dialog</li>
+                    <li>All windows now have icons with improved loading timing</li>
+                    <li>Tray icon click-to-restore functionality</li>
+                    <li>Notification balloon on first minimize</li>
+                    <li>Centered dialogs and optimized spacing</li>
+                    <li>Wider changelog dialog</li>
+                </ul>
+            </div>
+
+            <div class="category">
+                <h3>Enhanced Logic</h3>
+                <ul>
+                    <li>Manual kill block for routines with midnight reset</li>
+                    <li>Session limit validation (prevents past times)</li>
+                    <li>Proper listener cleanup on exit (mouse, keyboard, hotkeys)</li>
+                    <li>Routine configuration with Cancel button and close handler</li>
+                </ul>
+            </div>
+
+            <div class="category">
+                <h3>Bug Fixes</h3>
+                <ul>
+                    <li>Registry startup path uses full Python executable</li>
+                    <li>Tooltips properly destroyed to prevent ghosts</li>
+                    <li>AttributeError proxy hardening</li>
+                    <li>Icon persistence on all dialogs</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- v1.2.0 -->
+        <div class="version-block">
+            <h2>v1.2.0</h2>
+            <p class="version-date">February 2026</p>
+            
+            <div class="category">
+                <h3>Major Features</h3>
+                <ul>
+                    <li>Global hotkeys: Ctrl+Alt+E (toggle), Ctrl+Alt+M (minimize), Ctrl+Alt+Q (quit)</li>
+                    <li>Recurring daily routine scheduler with per-day time configuration</li>
+                    <li>Windows startup options: open only, auto-enable, or scheduled routine</li>
+                    <li>Minimize to tray with preference memory</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- v1.1.0 -->
+        <div class="version-block">
+            <h2>v1.1.0</h2>
+            <p class="version-date">February 2026</p>
+            
+            <div class="category">
+                <h3>Stealth Improvements</h3>
+                <ul>
+                    <li>Smart idle detection: only jiggles after 30s of inactivity</li>
+                    <li>Randomized intervals (45-75s instead of fixed 60s)</li>
+                    <li>Variable movement patterns: tiny/small/medium + jitter/orbital/slide</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- v1.0.1 -->
+        <div class="version-block">
+            <h2>v1.0.1</h2>
+            <p class="version-date">February 2026</p>
+            
+            <div class="category">
+                <h3>Bug Fixes</h3>
+                <ul>
+                    <li>Fixed: Minimize notification no longer repeats on every minimize to tray</li>
+                    <li>Notification now only shows once per session</li>
+                </ul>
+            </div>
+
+            <div class="category">
+                <h3>New Features</h3>
+                <ul>
+                    <li>Added: About & Changelog dialog in application</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- v1.0.0 -->
+        <div class="version-block">
+            <h2>v1.0.0</h2>
+            <p class="version-date">February 2026</p>
+            
+            <div class="category">
+                <h3>Initial Release</h3>
+                <ul>
+                    <li>60-second activity simulation with F15 + mouse movements</li>
+                    <li>Scheduled end time with auto-disable</li>
+                    <li>System tray integration with notifications</li>
+                    <li>Dark-themed modern UI</li>
+                    <li>Standalone .exe with bundled Python runtime</li>
+                    <li>Built with CustomTkinter, PyAutoGUI, pystray</li>
+                </ul>
+            </div>
+        </div>
+
+        <p style="margin-top: 50px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+            <a href="https://jbeck.app/software.html" style="color: var(--accent-green);">Download Latest Version</a>
+        </p>
+    </div>
+</body>
+</html>

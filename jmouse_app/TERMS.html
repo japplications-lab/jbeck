@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jMouse v1.2.9 - Terms & Conditions</title>
+    <style>
+        :root {
+            --bg-dark: #0a0e17;
+            --bg-card: #141824;
+            --border: #1e2330;
+            --border-glow: #2a3244;
+            --accent-green: #00ff88;
+            --accent-green-dim: #00cc6f;
+            --accent-gold: #ffd500;
+            --accent-orange: #ff8800;
+            --accent-red: #ff3366;
+            --text-primary: #e8ecf4;
+            --text-secondary: #8b95a8;
+            --text-muted: #4a5568;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 50px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid var(--accent-green);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--accent-green);
+            border-radius: 8px;
+            color: var(--accent-green);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .back-link:hover {
+            background: rgba(0, 255, 136, 0.2);
+            transform: translateX(-5px);
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: var(--accent-green);
+            margin-bottom: 10px;
+        }
+        .version {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        h2 {
+            font-size: 1.6rem;
+            color: var(--accent-green);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        h3 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        p {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+        ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+        }
+        .warning {
+            background: rgba(255, 213, 0, 0.1);
+            border-left: 4px solid var(--accent-gold);
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+        .warning h3 {
+            color: var(--accent-gold);
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        .warning p {
+            color: var(--text-primary);
+        }
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .risk-card {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .risk-card.minimal {
+            border-left: 4px solid #00ff88;
+        }
+        .risk-card.low {
+            border-left: 4px solid #aaee00;
+        }
+        .risk-card.moderate {
+            border-left: 4px solid var(--accent-gold);
+        }
+        .risk-card.high {
+            border-left: 4px solid var(--accent-orange);
+        }
+        .risk-card.critical {
+            border-left: 4px solid var(--accent-red);
+        }
+        .risk-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        .risk-card .risk-level {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .risk-card.minimal .risk-level { color: #00ff88; }
+        .risk-card.low .risk-level { color: #aaee00; }
+        .risk-card.moderate .risk-level { color: var(--accent-gold); }
+        .risk-card.high .risk-level { color: var(--accent-orange); }
+        .risk-card.critical .risk-level { color: var(--accent-red); }
+        .risk-card p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+        strong {
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="../software.html" class="back-link">← Back to Software</a>
+            <h1>📜 Terms & Conditions</h1>
+            <p class="version">jMouse v1.2.9 • February 2026</p>
+        </div>
+
+        <h2>Purpose & Functionality</h2>
+        <p>jMouse prevents system idle states by simulating keyboard input (F15 key) and subtle mouse movements at randomized intervals. This keeps your workstation active during extended operations, remote sessions, or long-running tasks.</p>
+
+        <h2>System Integration</h2>
+        <h3>Windows Registry</h3>
+        <p>jMouse may write to your user-level Windows registry (HKCU) to enable automatic startup. This does not require administrator privileges and can be disabled at any time.</p>
+
+        <h3>Background Operation</h3>
+        <p>When minimized to system tray, jMouse continues running. A tray icon indicates active status.</p>
+
+        <h3>Persistent Settings</h3>
+        <p>Your preferences are stored locally in <code>jmouse_settings.json</code>. This file persists after closing the app.</p>
+
+        <h2>Input Monitoring</h2>
+        <h3>Global Hotkeys</h3>
+        <p>jMouse monitors keyboard input for hotkeys (Ctrl+Alt+E/M/Q). <strong>No keystrokes are recorded, stored, or transmitted.</strong> Monitoring stops when the app closes.</p>
+
+        <h3>Idle Detection</h3>
+        <p>jMouse monitors mouse and keyboard activity timing to detect idle states. <strong>Only timestamps are tracked—no content is recorded or logged.</strong> Data is never stored or transmitted.</p>
+
+        <h2>Automated Operation</h2>
+        <h3>Scheduled Automation</h3>
+        <p>If configured, jMouse can automatically start/stop based on your weekly schedule. This is opt-in and can be manually overridden at any time.</p>
+
+        <div class="warning">
+            <h3>⚠️ Important Responsibility</h3>
+            <p><strong>Automated scheduling increases your responsibility</strong> to ensure compliance with your organization's policies on attendance tracking and work-from-home monitoring.</p>
+        </div>
+
+        <h2>Use at Your Own Risk</h2>
+        <p>This software is provided AS-IS without warranty of any kind. By using jMouse, you acknowledge full responsibility for compliance with your organization's policies and any consequences of its use.</p>
+
+        <h2>Intended Use Cases</h2>
+        <ul>
+            <li><strong>Preventing System Idle:</strong> Keeping workstation active during long-running processes, downloads, or remote connections</li>
+            <li><strong>Presentation Mode:</strong> Avoiding screensavers during demos or presentations</li>
+            <li><strong>Remote Work:</strong> Maintaining active status in communication tools when physically present but away from keyboard</li>
+            <li><strong>Testing & Development:</strong> Testing idle-prevention features or monitoring tools</li>
+        </ul>
+
+        <div class="warning">
+            <h3>⚠️ Not Intended For</h3>
+            <p>Misrepresenting work hours, falsifying attendance records, or circumventing employer monitoring systems. Such use violates trust and may result in disciplinary action or termination.</p>
+        </div>
+
+        <h2>Risk Assessment</h2>
+
+        <div class="risk-grid">
+            <div class="risk-card minimal">
+                <div class="risk-level">1 - Minimal</div>
+                <h4>System Performance</h4>
+                <p>Negligible CPU/memory impact during normal operation.</p>
+            </div>
+
+            <div class="risk-card low">
+                <div class="risk-level">2 - Low</div>
+                <h4>System Access</h4>
+                <p>Writes to user-level registry for startup. Monitors keyboard/mouse timing for idle detection and hotkeys. All local—no data logged or transmitted.</p>
+            </div>
+
+            <div class="risk-card low">
+                <div class="risk-level">3 - Low</div>
+                <h4>Unintended Interference</h4>
+                <p>May conflict with screen recording or presentation software.</p>
+            </div>
+
+            <div class="risk-card moderate">
+                <div class="risk-level">4 - Moderate</div>
+                <h4>Policy Compliance</h4>
+                <p>Verify your organization allows automation tools before use.</p>
+            </div>
+
+            <div class="risk-card high">
+                <div class="risk-level">5 - High</div>
+                <h4>Employment Risk</h4>
+                <p>Misrepresenting attendance or work status may violate company policy. Automated scheduling increases this risk if not used responsibly.</p>
+            </div>
+
+            <div class="risk-card critical">
+                <div class="risk-level">6 - Critical</div>
+                <h4>Misuse Potential</h4>
+                <p>Using this to falsify activity or circumvent monitoring is YOUR responsibility.</p>
+            </div>
+        </div>
+
+        <h2>Detection & Monitoring</h2>
+        <p>While jMouse uses randomization (45-75 second intervals, variable movement patterns) to appear more human, advanced monitoring software may still detect:</p>
+        <ul>
+            <li>The jMouse.exe process running on your system</li>
+            <li>Patterns in automated input behavior</li>
+            <li>Registry entries (if Windows startup is enabled)</li>
+            <li>Keyboard/mouse activity monitoring hooks</li>
+        </ul>
+        <p><strong>Bottom Line:</strong> jMouse reduces but does not eliminate detection risk. Use ethically and in accordance with workplace policies.</p>
+
+        <h2>Privacy & Data</h2>
+        <h3>What jMouse Monitors</h3>
+        <ul>
+            <li><strong>Activity Timing:</strong> Timestamps of mouse/keyboard events (for idle detection)</li>
+            <li><strong>Hotkey Combinations:</strong> Detection of Ctrl+Alt+E/M/Q presses</li>
+        </ul>
+
+        <h3>What jMouse Does NOT Do</h3>
+        <ul>
+            <li>Record keystrokes or mouse clicks</li>
+            <li>Log browsing history or application usage</li>
+            <li>Transmit any data over the internet</li>
+            <li>Store activity history</li>
+            <li>Access personal files or documents</li>
+        </ul>
+
+        <p><strong>All processing is local.</strong> jMouse has no network connectivity and does not phone home.</p>
+
+        <h2>Official Distribution</h2>
+        <p>jMouse is developed and maintained exclusively by its original author. To ensure you're running a genuine, unmodified copy, always obtain jMouse from:</p>
+
+        <div style="text-align: center; margin: 30px 0; padding: 20px; background: rgba(0, 255, 136, 0.1); border: 1px solid var(--accent-green); border-radius: 12px;">
+            <p style="font-size: 1.3rem; font-weight: 600; color: var(--accent-green); margin-bottom: 10px;">Official Source</p>
+            <p style="font-size: 1.1rem; color: var(--text-primary); margin-bottom: 0;">
+                <a href="https://jbeck.app" style="color: var(--accent-green); text-decoration: none; font-weight: 600;">jbeck.app</a>
+            </p>
+        </div>
+
+        <p><strong>Do not</strong> download jMouse from third-party websites, file sharing services, or unofficial sources. Modified versions may contain malware or unwanted modifications.</p>
+
+        <h2>Liability Disclaimer</h2>
+        <p>The developer of jMouse:</p>
+        <ul>
+            <li>Provides this software as-is, without warranty or guarantee</li>
+            <li>Is not responsible for consequences of use or misuse</li>
+            <li>Does not endorse policy violations or unethical use</li>
+            <li>Cannot be held liable for employment consequences</li>
+        </ul>
+
+        <p><strong>By using jMouse, you agree that:</strong></p>
+        <ul>
+            <li>You accept full responsibility for compliance with workplace policies</li>
+            <li>You understand the risks outlined in this document</li>
+            <li>You will not hold the developer liable for any negative outcomes</li>
+            <li>You will use jMouse ethically and in good faith</li>
+        </ul>
+
+        <h2>Code of Conduct</h2>
+        <p>Users are expected to:</p>
+        <ul>
+            <li><strong>Be Transparent:</strong> Don't hide jMouse usage from employers who explicitly ask</li>
+            <li><strong>Follow Policies:</strong> Check your organization's IT and HR policies before using</li>
+            <li><strong>Use Ethically:</strong> Don't misrepresent your work status or availability</li>
+            <li><strong>Respect Boundaries:</strong> Understand that some employers prohibit automation tools</li>
+        </ul>
+
+        <h2>Updates & Changes</h2>
+        <p>These Terms & Conditions may be updated in future versions of jMouse. Major changes will be noted in the changelog. Continued use of jMouse constitutes acceptance of updated terms.</p>
+
+        <h2>License</h2>
+        <p>jMouse is proprietary software. You may:</p>
+        <ul>
+            <li>Use jMouse for personal or professional purposes</li>
+            <li>Install jMouse on multiple devices you own</li>
+        </ul>
+
+        <p>You may NOT:</p>
+        <ul>
+            <li>Redistribute jMouse without permission</li>
+            <li>Modify, reverse engineer, or decompile jMouse</li>
+            <li>Sell or sublicense jMouse</li>
+            <li>Remove copyright or attribution notices</li>
+        </ul>
+
+        <h2>Contact</h2>
+        <p>For questions, concerns, or feedback about jMouse:</p>
+        <p style="text-align: center; margin-top: 20px;">
+            <a href="https://jbeck.app" style="color: var(--accent-green); font-size: 1.1rem; text-decoration: none; font-weight: 600;">Visit jbeck.app</a>
+        </p>
+
+        <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--border); text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">
+                Last Updated: February 2026 • Version 1.2.9
+            </p>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">
+                © 2026 Justin Beck • <a href="https://jbeck.app" style="color: var(--accent-green);">jbeck.app</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
