@@ -755,7 +755,7 @@ async function fetchSpcOutlookForPoint(lat, lng) {
     console.warn('[SPC] Worker fetch failed:', e, '— falling back to client-side');
   }
 
-  // Client-side fallback: fetch GeoJSON via proxy and do point-in-polygon here
+  // Client-side fallback: fetch all 3 days in parallel then do point-in-polygon
   const days = [
     { url: 'day1otlk.json', label: 'Today'     },
     { url: 'day2otlk.json', label: 'Tomorrow'  },
@@ -763,70 +763,95 @@ async function fetchSpcOutlookForPoint(lat, lng) {
   ];
   const order = ['HIGH','MDT','ENH','SLGT','MRGL','TSTM'];
   const pt = [lng, lat];
-  const results = [];
 
-  for (const { url, label } of days) {
+  const gjResults = await Promise.all(days.map(async ({ url, label }) => {
     try {
       const res = await fetch(`${WORKER_URL}/proxy/products/outlook/${url}`);
-      if (!res.ok) { console.warn('[SPC] Proxy fetch failed for', url, res.status); continue; }
+      if (!res.ok) return null;
       const gj = await res.json();
-      console.log('[SPC]', url, '— features:', gj.features?.length);
-      if (!gj.features?.length) continue;
+      return { gj, label };
+    } catch(e) { return null; }
+  }));
 
-      let best = null, bestOrder = -1;
-      for (const feat of gj.features) {
-        const raw = (feat.properties?.LABEL || feat.properties?.label || feat.properties?.DN || '').toString().toUpperCase().trim();
-        const key = SPC_CAT[raw] ? raw : (DN_TO_CAT[raw] || null);
-        if (!key) continue;
-        const rank = order.indexOf(key);
-        if (rank > bestOrder && pointInFeature(pt, feat)) { best = key; bestOrder = rank; }
-      }
-      console.log('[SPC]', url, '— best risk for point:', best);
-      if (best) results.push({ risk: best, dayLabel: label, ...SPC_CAT[best] });
-    } catch(e) { console.warn('[SPC] Client fallback failed for', url, e); }
+  const results = [];
+  for (const item of gjResults) {
+    if (!item || !item.gj.features?.length) continue;
+    let best = null, bestOrder = -1;
+    for (const feat of item.gj.features) {
+      const raw = (feat.properties?.LABEL || feat.properties?.label || feat.properties?.DN || '').toString().toUpperCase().trim();
+      const key = SPC_CAT[raw] ? raw : (DN_TO_CAT[raw] || null);
+      if (!key) continue;
+      const rank = order.indexOf(key);
+      if (rank > bestOrder && pointInFeature(pt, feat)) { best = key; bestOrder = rank; }
+    }
+    if (best) results.push({ risk: best, dayLabel: item.label, ...SPC_CAT[best] });
   }
   return results.length ? results : null;
 }
 
 async function loadWeather(loc) {
-  curLoc=loc; localStorage.setItem('jweather_last_location', JSON.stringify(loc)); spin.style.display='flex';
+  curLoc = loc;
+  localStorage.setItem('jweather_last_location', JSON.stringify(loc));
+  spin.style.display = 'flex';
+
+  const [lat, lng] = [Number(loc.lat), Number(loc.lng)];
+
   try {
-    const [lat, lng] = [Number(loc.lat), Number(loc.lng)];
-    const pt = await fetch(`https://api.weather.gov/points/${lat},${lng}`);
-    if (!pt.ok) throw new Error('NWS failed');
-    const ptd = await pt.json();
-    const [stR, fcR, alR] = await Promise.all([
-      fetch(ptd.properties.observationStations),
-      fetch(ptd.properties.forecast),
-      fetch(`https://api.weather.gov/alerts/active?point=${lat},${lng}`)
+    // ── STEP 1: NWS points + SPC outlook fire in parallel immediately ──
+    const [ptRes, spcPromise] = await Promise.all([
+      fetch(`https://api.weather.gov/points/${lat},${lng}`),
+      fetchSpcOutlookForPoint(lat, lng), // start SPC lookup right away
     ]);
-    let temp='--', desc='--', feels='--', humid='--', wind='--', isDaytime=true;
+
+    if (!ptRes.ok) throw new Error('NWS points failed');
+    const ptd = await ptRes.json();
+
+    // ── STEP 2: Forecast, alerts, and observation stations all fire together ──
+    const [fcR, alR, stR] = await Promise.all([
+      fetch(ptd.properties.forecast),
+      fetch(`https://api.weather.gov/alerts/active?point=${lat},${lng}`),
+      fetch(ptd.properties.observationStations),
+    ]);
+
+    // ── STEP 3: Parse forecast + alerts immediately and render them ──
+    const [periods, alData, spcResult] = await Promise.all([
+      fcR.ok ? fcR.json().then(d => d.properties.periods) : Promise.resolve([]),
+      alR.ok ? alR.json() : Promise.resolve({ features: [] }),
+      spcPromise,
+    ]);
+
+    renderCurrent(loc, '--', '--', '--', '--', '--', true); // render shell immediately
+    renderForecast(periods);
+    renderAlerts(alData, spcResult);
+    spin.style.display = 'none'; // hide spinner — page is usable now
+
+    // ── STEP 4: Fetch current conditions in the background and update when ready ──
     if (stR.ok) {
-      const std = await stR.json(); const stId = std.features[0]?.properties?.stationIdentifier;
+      const std = await stR.json();
+      const stId = std.features[0]?.properties?.stationIdentifier;
       if (stId) {
         const oR = await fetch(`https://api.weather.gov/stations/${stId}/observations/latest`);
         if (oR.ok) {
           const o = (await oR.json()).properties;
-          temp = o.temperature?.value!=null ? `${Math.round(o.temperature.value*9/5+32)}` : '--';
-          desc = o.textDescription || '--';
+          const temp = o.temperature?.value != null ? `${Math.round(o.temperature.value * 9/5 + 32)}` : '--';
+          const desc = o.textDescription || '--';
           const h = o.timestamp ? new Date(o.timestamp).getHours() : new Date().getHours();
-          isDaytime = h>=6 && h<20;
-          feels = o.heatIndex?.value!=null ? `${Math.round(o.heatIndex.value*9/5+32)}°F`
-                : o.windChill?.value!=null ? `${Math.round(o.windChill.value*9/5+32)}°F` : `${temp}°F`;
-          humid = o.relativeHumidity?.value!=null ? `${Math.round(o.relativeHumidity.value)}%` : '--';
-          wind = o.windSpeed?.value!=null && o.windDirection?.value!=null
-            ? `${Math.round(o.windSpeed.value*2.237)} mph ${compass(o.windDirection.value)}` : '--';
+          const isDaytime = h >= 6 && h < 20;
+          const feels = o.heatIndex?.value != null ? `${Math.round(o.heatIndex.value * 9/5 + 32)}°F`
+                      : o.windChill?.value != null ? `${Math.round(o.windChill.value * 9/5 + 32)}°F`
+                      : `${temp}°F`;
+          const humid = o.relativeHumidity?.value != null ? `${Math.round(o.relativeHumidity.value)}%` : '--';
+          const wind = o.windSpeed?.value != null && o.windDirection?.value != null
+            ? `${Math.round(o.windSpeed.value * 2.237)} mph ${compass(o.windDirection.value)}` : '--';
+          renderCurrent(loc, temp, desc, feels, humid, wind, isDaytime);
         }
       }
     }
-    const periods = fcR.ok ? (await fcR.json()).properties.periods : [];
-    const alData = alR.ok ? await alR.json() : { features: [] };
-    const spcResult = await fetchSpcOutlookForPoint(Number(loc.lat), Number(loc.lng));
-    renderCurrent(loc, temp, desc, feels, humid, wind, isDaytime);
-    renderForecast(periods);
-    renderAlerts(alData, spcResult);
-  } catch(e) { console.error(e); document.getElementById('current-loc').textContent='Unavailable'; }
-  finally { spin.style.display='none'; }
+  } catch(e) {
+    console.error(e);
+    document.getElementById('current-loc').textContent = 'Unavailable';
+    spin.style.display = 'none';
+  }
 }
 
 function renderCurrent(loc, temp, desc, feels, humid, wind, isDaytime) {
