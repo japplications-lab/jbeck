@@ -795,12 +795,15 @@ async function loadWeather(loc) {
   spin.style.display = 'flex';
 
   const [lat, lng] = [Number(loc.lat), Number(loc.lng)];
+  // Route all NWS calls through worker cache — dramatically faster on repeat visits
+  const nws = path => `${WORKER_URL}/nws${path}`;
+  const toNws = u => nws(u.replace('https://api.weather.gov', ''));
 
   try {
     // ── STEP 1: NWS points + SPC outlook fire in parallel immediately ──
     const [ptRes, spcPromise] = await Promise.all([
-      fetch(`https://api.weather.gov/points/${lat},${lng}`),
-      fetchSpcOutlookForPoint(lat, lng), // start SPC lookup right away
+      fetch(nws(`/points/${lat},${lng}`)),
+      fetchSpcOutlookForPoint(lat, lng),
     ]);
 
     if (!ptRes.ok) throw new Error('NWS points failed');
@@ -808,29 +811,29 @@ async function loadWeather(loc) {
 
     // ── STEP 2: Forecast, alerts, and observation stations all fire together ──
     const [fcR, alR, stR] = await Promise.all([
-      fetch(ptd.properties.forecast),
-      fetch(`https://api.weather.gov/alerts/active?point=${lat},${lng}`),
-      fetch(ptd.properties.observationStations),
+      fetch(toNws(ptd.properties.forecast)),
+      fetch(nws(`/alerts/active?point=${lat},${lng}`)),
+      fetch(toNws(ptd.properties.observationStations)),
     ]);
 
-    // ── STEP 3: Parse forecast + alerts immediately and render them ──
+    // ── STEP 3: Render forecast + alerts immediately ──
     const [periods, alData, spcResult] = await Promise.all([
       fcR.ok ? fcR.json().then(d => d.properties.periods) : Promise.resolve([]),
       alR.ok ? alR.json() : Promise.resolve({ features: [] }),
       spcPromise,
     ]);
 
-    renderCurrent(loc, '--', '--', '--', '--', '--', true); // render shell immediately
+    renderCurrent(loc, '--', '--', '--', '--', '--', true);
     renderForecast(periods);
     renderAlerts(alData, spcResult);
-    spin.style.display = 'none'; // hide spinner — page is usable now
+    spin.style.display = 'none';
 
-    // ── STEP 4: Fetch current conditions in the background and update when ready ──
+    // ── STEP 4: Current conditions loads in background ──
     if (stR.ok) {
       const std = await stR.json();
       const stId = std.features[0]?.properties?.stationIdentifier;
       if (stId) {
-        const oR = await fetch(`https://api.weather.gov/stations/${stId}/observations/latest`);
+        const oR = await fetch(nws(`/stations/${stId}/observations/latest`));
         if (oR.ok) {
           const o = (await oR.json()).properties;
           const temp = o.temperature?.value != null ? `${Math.round(o.temperature.value * 9/5 + 32)}` : '--';
