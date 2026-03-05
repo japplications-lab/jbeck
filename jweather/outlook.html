@@ -299,6 +299,147 @@
     }
     ::-webkit-scrollbar{width:4px;}
     ::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:10px;}
+
+    /* ===== OUTLOOK MOBILE ===== */
+    @media (max-width: 640px) {
+
+      /* Header: two-row */
+      .header-inner {
+        height: auto;
+        flex-wrap: wrap;
+        padding: 10px 14px 8px;
+        gap: 8px;
+      }
+      .header-nav { display: none; }
+      .search-wrap {
+        order: 3;
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+      .loc-btn .loc-btn-text { display: none; }
+      .loc-btn { padding: 7px 9px; }
+
+      /* App body: stack vertically, map on top, controls below */
+      .app-body {
+        flex-direction: column;
+      }
+
+      /* Sidebar becomes a scrollable bottom control panel */
+      .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-top: 1px solid var(--border);
+        flex-direction: column;
+        overflow-y: auto;
+        max-height: 42vh;
+        order: 2;
+        flex-shrink: 0;
+      }
+
+      /* Show all day sections side by side in a horizontal scroll */
+      .sidebar-head { display: none; }
+      .sidebar > .day-section {
+        border-bottom: none;
+        border-right: 1px solid var(--border);
+      }
+      /* Stack sections vertically but keep compact */
+      .day-section-head { padding: 6px 12px 4px; }
+      .day-eyebrow { font-size: 0.55rem; }
+      .day-name { font-size: 0.78rem; }
+      .cat-list { padding: 2px 6px 2px; }
+      .cat-btn { font-size: 0.72rem; padding: 4px 7px; }
+      .disc-sidebar-btn { font-size: 0.68rem; padding: 6px 8px; width: calc(100% - 12px); margin: 2px 6px 8px; }
+
+      /* Map panel fills remaining space */
+      .map-panel {
+        flex: 1;
+        min-height: 0;
+        order: 1;
+      }
+
+      /* Map overlays — tighten for small screens */
+      .map-topbar { top: 10px; left: 10px; right: 50px; gap: 6px; }
+      .map-context-pill { font-size: 0.68rem; padding: 5px 10px; }
+      .map-legend { bottom: 10px; left: 10px; padding: 8px 10px; }
+      .legend-title { font-size: 0.58rem; margin-bottom: 6px; }
+      .legend-item { font-size: 0.66rem; gap: 6px; }
+      .legend-swatch { width: 11px; height: 11px; }
+
+      /* Discussion modal — full screen */
+      #disc-modal { padding: 0; align-items: flex-end; }
+      .disc-box {
+        border-radius: var(--r) var(--r) 0 0;
+        max-width: 100%;
+        max-height: 92vh;
+        border-bottom: none;
+      }
+    }
+
+    /* Horizontal layout for sidebar day sections on mobile */
+    @media (max-width: 640px) {
+      .sidebar {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        max-height: none;
+        height: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .sidebar::-webkit-scrollbar { display: none; }
+      .sidebar > .day-section {
+        flex-shrink: 0;
+        min-width: 140px;
+        border-bottom: none;
+        border-right: 1px solid var(--border);
+      }
+      .sidebar > div[style*="margin-top:auto"] {
+        display: none; /* hide attribution on mobile */
+      }
+      /* Attribution div */
+      .sidebar > div:last-child { display: none; }
+    }
+
+    /* Mobile bottom nav */
+    .mobile-nav { display: none; }
+    @media (max-width: 640px) {
+      .mobile-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        z-index: 600;
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+      .mobile-nav a {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        padding: 10px 0 8px;
+        font-size: 0.62rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--text-4);
+        text-decoration: none;
+        transition: color 0.15s;
+      }
+      .mobile-nav a.active { color: var(--red); }
+      .mobile-nav a .material-symbols-rounded {
+        font-size: 22px;
+        font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      }
+      .mobile-nav a.active .material-symbols-rounded {
+        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      /* Push app body above fixed bottom nav */
+      .app-body { padding-bottom: calc(52px + env(safe-area-inset-bottom)); }
+    }
   </style>
 </head>
 <body>
@@ -315,7 +456,7 @@
         <span class="material-symbols-rounded">search</span>
         <input id="search-bar" type="search" autocomplete="off" placeholder="Search city, state or ZIP…"/>
         <button class="loc-btn" id="use-location-btn">
-          <span class="material-symbols-rounded">my_location</span>Locate me
+          <span class="material-symbols-rounded">my_location</span><span class="loc-btn-text">Locate me</span>
         </button>
       </div>
       <ul id="suggestions"></ul>
@@ -1458,5 +1599,25 @@ document.addEventListener('click',e=>{if(!sugBox.contains(e.target)&&e.target!==
 function pick(l){localStorage.setItem('jweather_last_location',JSON.stringify(l));window.location.href='index.html';}
 locBtn.addEventListener('click',()=>{if(!navigator.geolocation)return alert('Geolocation not supported.');locBtn.disabled=true;navigator.geolocation.getCurrentPosition(async pos=>{const{latitude:lat,longitude:lng}=pos.coords;let loc={label:'Your Location',city:'Your Location',state:'',lat,lng};try{const r=await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1`,{headers:{'Accept-Language':'en-US,en','User-Agent':'jWeather/1.0'}});const d=await r.json();const p=pn(d);if(p.city)loc=p;}catch{}localStorage.setItem('jweather_last_location',JSON.stringify(loc));window.location.href='index.html';},()=>{alert('Unable to get location.');locBtn.disabled=false;});});
 </script>
+
+<!-- Mobile bottom nav -->
+<nav class="mobile-nav">
+  <a href="index.html">
+    <span class="material-symbols-rounded">wb_sunny</span>
+    Forecast
+  </a>
+  <a href="outlook.html" class="active">
+    <span class="material-symbols-rounded">thunderstorm</span>
+    Severe
+  </a>
+  <a href="#" data-coming-soon>
+    <span class="material-symbols-rounded">radar</span>
+    Radar
+  </a>
+  <a href="#" data-coming-soon>
+    <span class="material-symbols-rounded">settings</span>
+    More
+  </a>
+</nav>
 </body>
 </html>
