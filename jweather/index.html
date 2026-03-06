@@ -223,8 +223,9 @@
 
     /* ===== SPINNER ===== */
     #spinner-overlay { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(242,243,245,0.65); backdrop-filter: blur(6px); align-items: center; justify-content: center; }
-    .spinner-box { background: var(--surface); border: 1px solid var(--border-2); border-radius: var(--r); padding: 24px 36px; display: flex; flex-direction: column; align-items: center; gap: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
-    .spinner-ring { width: 32px; height: 32px; border: 2px solid var(--border-2); border-top-color: var(--red); border-radius: 50%; animation: spin 0.65s linear infinite; }
+    .spinner-box { background: var(--surface); border: 1px solid var(--border-2); border-radius: var(--r); padding: 28px 40px; display: flex; flex-direction: column; align-items: center; gap: 14px; box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    .spinner-logo { width: 48px; height: 48px; background: var(--red); border-radius: 11px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(229,24,42,0.35); }
+    .spinner-logo .material-symbols-rounded { font-size: 28px; color: #fff; font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48; animation: spin 1.8s linear infinite; display: block; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .spinner-text { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-4); }
 
@@ -514,7 +515,12 @@
 
 <!-- Spinner -->
 <div id="spinner-overlay">
-  <div class="spinner-box"><div class="spinner-ring"></div><div class="spinner-text">Loading</div></div>
+  <div class="spinner-box">
+    <div class="spinner-logo">
+      <span class="material-symbols-rounded">wb_sunny</span>
+    </div>
+    <div class="spinner-text">Loading</div>
+  </div>
 </div>
 
 <!-- Alert Modal -->
