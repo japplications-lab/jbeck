@@ -297,6 +297,95 @@
       white-space:nowrap; pointer-events:none;
       color: inherit;
     }
+
+    /* ── ENH+ ALERT OVERLAY ── */
+    #enh-alert-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 800;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    #enh-alert-overlay.show { display: flex; }
+    .enh-alert-box {
+      background: var(--surface);
+      border: 1px solid var(--border-2);
+      border-radius: 16px;
+      max-width: 460px; width: 100%;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.25);
+      overflow: hidden;
+      animation: alertSlideIn 0.25s ease-out;
+    }
+    @keyframes alertSlideIn {
+      from { opacity: 0; transform: translateY(16px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0)   scale(1);    }
+    }
+    .enh-alert-banner {
+      padding: 20px 22px 16px;
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .enh-alert-banner.level-enh  { background: #fff4ec; border-bottom: 1px solid #fcd9b0; }
+    .enh-alert-banner.level-mdt  { background: #fff0f0; border-bottom: 1px solid #ffc5c5; }
+    .enh-alert-banner.level-high { background: #fdf0f8; border-bottom: 1px solid #f5b8e0; }
+    .enh-alert-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .level-enh  .enh-alert-icon { background: #e88020; }
+    .level-mdt  .enh-alert-icon { background: #e04040; }
+    .level-high .enh-alert-icon { background: #ee30a0; }
+    .enh-alert-icon .material-symbols-rounded {
+      font-size: 22px; color: #fff;
+      font-variation-settings: 'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;
+    }
+    .enh-alert-heading { flex: 1; }
+    .enh-alert-eyebrow {
+      font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; margin-bottom: 3px;
+    }
+    .level-enh  .enh-alert-eyebrow { color: #b05000; }
+    .level-mdt  .enh-alert-eyebrow { color: #a81818; }
+    .level-high .enh-alert-eyebrow { color: #aa1070; }
+    .enh-alert-title {
+      font-size: 1.05rem; font-weight: 800; color: var(--text);
+      letter-spacing: -0.02em; line-height: 1.25;
+    }
+    .enh-alert-body { padding: 16px 22px 20px; }
+    .enh-alert-days {
+      display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap;
+    }
+    .enh-alert-day-chip {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--bg); border: 1px solid var(--border-2);
+      border-radius: 20px; padding: 5px 12px;
+      font-size: 0.75rem; font-weight: 600; color: var(--text-2);
+    }
+    .enh-alert-day-chip .chip-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+    .enh-alert-summary {
+      font-size: 0.82rem; color: var(--text-2); line-height: 1.7;
+      margin-bottom: 18px;
+    }
+    .enh-alert-continue {
+      width: 100%; padding: 12px;
+      border: none; border-radius: 9px;
+      font-family: var(--font); font-size: 0.85rem; font-weight: 700;
+      color: #fff; cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      letter-spacing: 0.01em;
+    }
+    .level-enh  .enh-alert-continue { background: #e88020; }
+    .level-mdt  .enh-alert-continue { background: #e04040; }
+    .level-high .enh-alert-continue { background: #ee30a0; }
+    .enh-alert-continue:hover  { opacity: 0.88; transform: translateY(-1px); }
+    .enh-alert-continue:active { opacity: 1;    transform: translateY(0); }
+    @media (max-width: 640px) {
+      #enh-alert-overlay { align-items: flex-end; padding: 0; }
+      .enh-alert-box { border-radius: 16px 16px 0 0; max-width: 100%; }
+    }
     ::-webkit-scrollbar{width:4px;}
     ::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:10px;}
 
@@ -656,12 +745,34 @@ const SIG_LABELS = {
   hail:'Significant Hail (2\"+ diameter)',
   prob:'Significant Severe (EF2+ / 65mph+ / 2\"+ hail)',
 };
-const SIG_DESC = {
-  torn:'This area has an elevated risk of violent EF2 or stronger tornadoes capable of destroying well-built homes and snapping large trees.',
-  wind:'This area has an elevated risk of extremely damaging straight-line winds exceeding 65 mph — comparable to a weak hurricane gust — that can level structures and create widespread power outages.',
-  hail:'This area has an elevated risk of very large hail at least 2 inches in diameter (roughly golf ball size), capable of destroying crops, denting vehicles, and breaking windows.',
-  prob:'This area has an elevated risk of particularly destructive severe weather — including EF2+ tornadoes, 65+ mph winds, and/or 2\"+ hail — any of which can cause major structural damage.',
+// Plain-language sig zone content — what it means, what to expect, what to do
+const SIG_INFO = {
+  torn: {
+    headline: '⚠️ Higher tornado danger here',
+    what: 'Forecasters flagged this area as having a notably higher chance of strong, long-track tornadoes — the kind that can destroy homes and stay on the ground for miles.',
+    expect: 'If a tornado does hit here, it\'s more likely to be violent (EF2 or stronger) than anywhere else in the surrounding outlook.',
+    action: 'Have a shelter plan ready before storms arrive. Don\'t wait for a warning to start moving.',
+  },
+  wind: {
+    headline: '⚠️ Exceptionally damaging winds possible',
+    what: 'This isn\'t just a typical thunderstorm wind threat. Forecasters see a real chance of straight-line winds topping 65 mph — strong enough to down large trees, damage roofs, and knock out power for days.',
+    expect: 'These winds can hit fast with little warning. Anything unsecured outside becomes a projectile.',
+    action: 'Stay indoors during storms. Move vehicles under cover if possible.',
+  },
+  hail: {
+    headline: '⚠️ Very large hail likely',
+    what: 'Hail 2 inches or larger — roughly the size of a golf ball — is a real possibility here. Large enough to dent cars, break windows, and injure anyone caught outside.',
+    expect: 'Large hail can fall fast and without much warning. Even a brief storm can cause significant damage.',
+    action: 'Get your car under cover if you can. Stay inside when storms are near.',
+  },
+  prob: {
+    headline: '⚠️ Particularly dangerous severe weather possible',
+    what: 'This is the highest-confidence area on the Day 3 outlook. Forecasters believe there\'s a meaningful chance of destructive severe weather — strong tornadoes, damaging winds, or large hail.',
+    expect: 'Day 3 forecasts carry more uncertainty, but being flagged here means confidence is already high enough to take seriously.',
+    action: 'Keep an eye on forecasts over the next couple of days. Have a plan in place early.',
+  },
 };
+const SIG_DESC = SIG_INFO; // legacy alias
 
 // Exact SPC colors
 const CAT = {
@@ -1114,6 +1225,8 @@ async function loadHazard(day, mode) {
       }
       // Always store (even null) so we know this day was checked
       highestRiskByDay[day] = highestRisk;
+      // Check if we should show the ENH+ alert overlay (fires once both Day1+Day2 are loaded)
+      if (day === 1 || day === 2) maybeShowEnhAlert();
       if (highestRisk) {
         const pulseClass = 'pulse-' + highestRisk.toLowerCase();
         const activeBtn = document.querySelector(`.cat-btn[data-day="${day}"][data-mode="${mode}"]`);
@@ -1228,51 +1341,36 @@ async function loadSigLayer(day, mode) {
   } catch(e) { console.warn('Sig layer failed', e); }
 }
 
-// Per-hazard significant threat upgrade language
-const SIG_UPGRADE = {
-  torn: 'Within this hatched area, forecasters have identified a <strong>meaningful increase in the likelihood of significant tornadoes (EF2 or stronger)</strong> compared to the broader tornado outlook zone surrounding it. If a tornado does occur here, it is more likely to be violent, long-track, and capable of catastrophic damage. Do not wait for a warning — have your shelter plan ready before storms arrive.',
-  wind: 'Within this hatched area, forecasters have identified a <strong>meaningfully elevated risk of extremely damaging wind gusts exceeding 65 mph</strong> compared to the surrounding wind outlook. Straight-line winds of this intensity can cause structural damage, snap trees, and trigger widespread long-duration power outages across a large area. This is not a typical thunderstorm wind threat.',
-  hail: 'Within this hatched area, forecasters have identified a <strong>meaningfully elevated probability of very large hail — 2 inches or greater in diameter</strong> — compared to the broader hail outlook. Hailstones of this size can total vehicles, destroy crops, shatter windows, and cause serious injury to anyone caught outside. Seek sturdy shelter when storms approach.',
-  prob: 'This hatched area represents the highest tier of the Day 3 severe weather outlook. Forecasters are signaling that within this zone, there is an <strong>elevated probability of particularly destructive severe weather</strong> — including the potential for significant tornadoes, extremely damaging winds, or very large hail. While Day 3 carries inherent forecast uncertainty, the hatching indicates enough confidence to warrant early awareness and preparation.',
-};
+// SIG_UPGRADE no longer used — content merged into SIG_INFO above
+const SIG_UPGRADE = {};
 
 function sigPopupContent(f, mode, day) {
-  const p = f.properties || {};
-  const sigLabel  = SIG_LABELS[mode]   || 'Significant Threat';
-  const sigDesc   = SIG_DESC[mode]     || '';
-  const sigUpgrade = SIG_UPGRADE[mode] || '';
-  const dn = parseInt(p.DN || p.dn || 0);
-
-  let probLine = '';
-  if (mode !== 'cat' && dn > 0) {
-    let probC = PROB[0];
-    for (const x of PROB) { if (dn >= x.dn) probC = x; }
-    probLine = `<div class="popup-stat" style="margin-top:8px;">Base probability: ${probC.label} (${probC.pct})</div>`;
-  }
-
-  // Swatch matching SPC dashed sig style
-  const hatchSwatch = `<div class="popup-swatch" style="
-    background: rgba(0,0,0,0.06);
-    border: 2px dashed #000;
-    box-sizing: border-box;
-    border-radius: 3px;
-  "></div>`;
+  const info = SIG_INFO[mode] || {
+    headline: '⚠️ Significant Threat Zone',
+    what: 'Forecasters have flagged this area as having a higher risk of severe weather.',
+    expect: 'Conditions here are more dangerous than the surrounding outlook area.',
+    action: 'Stay weather-aware and have a plan ready.',
+  };
 
   return `<div class="popup-sig-bar">
-      <span class="material-symbols-rounded">bolt</span>${sigLabel}
+      <span class="material-symbols-rounded">warning</span>${SIG_LABELS[mode] || 'Significant Threat'}
     </div>
     <div class="popup-inner">
-      <div class="popup-header">
-        ${hatchSwatch}
-        <div>
-          <div class="popup-risk">Significant Threat Zone</div>
-          <div class="popup-sub">${DAY_LABELS[day]} · ${MODE_LABELS[mode]}</div>
-        </div>
-      </div>
+      <div style="font-size:0.87rem;font-weight:700;color:var(--text);margin-bottom:10px;line-height:1.3;">${info.headline}</div>
       <div class="popup-divider"></div>
-      <div class="popup-desc">${sigDesc}</div>
-      <div class="popup-desc" style="margin-top:8px;">${sigUpgrade}</div>
-      ${probLine}
+      <div style="font-size:0.75rem;color:var(--text-2);line-height:1.65;margin-bottom:8px;">
+        <strong style="color:var(--text);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.07em;">What it means</strong><br>
+        ${info.what}
+      </div>
+      <div style="font-size:0.75rem;color:var(--text-2);line-height:1.65;margin-bottom:8px;">
+        <strong style="color:var(--text);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.07em;">What to expect</strong><br>
+        ${info.expect}
+      </div>
+      <div style="font-size:0.75rem;color:var(--text-2);line-height:1.65;background:var(--red-dim);border:1px solid var(--red-border);border-radius:6px;padding:8px 10px;">
+        <strong style="color:var(--red);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.07em;">What to do</strong><br>
+        <span style="color:var(--text-2);">${info.action}</span>
+      </div>
+      <div style="font-size:0.65rem;color:var(--text-4);margin-top:8px;">${DAY_LABELS[day]} · ${MODE_LABELS[mode]}</div>
     </div>`;
 }
 
@@ -1503,6 +1601,109 @@ document.querySelectorAll('[data-coming-soon]').forEach(el => {
 });
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
+
+// ── ENH+ ALERT OVERLAY ────────────────────────────────────────────────────────
+const ENH_ALERT_CONTENT = {
+  ENH: {
+    level: 'level-enh',
+    eyebrow: 'Elevated Risk Outlook',
+    title: 'Enhanced Severe Weather Risk',
+    summary: (days) => `An Enhanced Risk of severe weather has been issued for ${days}. This means organized, widespread severe weather is expected — including the possibility of tornadoes, large hail, and damaging winds. This is above a typical stormy day and warrants preparation.`,
+  },
+  MDT: {
+    level: 'level-mdt',
+    eyebrow: '⚠️ High Risk Outlook',
+    title: 'Moderate Risk — Significant Severe Weather',
+    summary: (days) => `A Moderate Risk of severe weather is in effect for ${days}. This is a serious threat — significant severe weather is expected across a large area, with the potential for strong tornadoes, very large hail, and destructive winds. Review your safety plan now.`,
+  },
+  HIGH: {
+    level: 'level-high',
+    eyebrow: '🚨 Particularly Dangerous Situation',
+    title: 'High Risk — Extreme Severe Weather',
+    summary: (days) => `A High Risk — the highest level issued by the Storm Prediction Center — is in effect for ${days}. A particularly dangerous situation (PDS) is expected. Life-threatening tornadoes, extremely large hail, and catastrophic winds are all possible. Take this extremely seriously.`,
+  },
+};
+
+const RISK_COLORS = { ENH: '#e88020', MDT: '#e04040', HIGH: '#ee30a0' };
+const RISK_PRIORITY = ['HIGH', 'MDT', 'ENH'];
+
+let _enhAlertShown = false;
+
+// Fetch a day's categorical GeoJSON silently just to populate highestRiskByDay
+async function silentRiskCheck(day) {
+  const layerId = LAYER_IDS[`${day}-cat`];
+  if (!layerId) { highestRiskByDay[day] = null; maybeShowEnhAlert(); return; }
+  try {
+    const url = `${NOAA_BASE}/${layerId}/query?where=1%3D1&outFields=*&f=geojson&geometryPrecision=4&outSR=4326`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error();
+    const gj = await res.json();
+    let topRisk = null;
+    for (const feat of (gj.features || [])) {
+      const raw = (feat.properties?.LABEL || feat.properties?.label || feat.properties?.DN || '').toString().toUpperCase().trim();
+      const key = CAT[raw] ? raw : (DN_TO_CAT[raw] || '');
+      if (ENH_PLUS.includes(key)) {
+        const rank = RISK_ORDER.indexOf(key);
+        if (topRisk === null || rank > RISK_ORDER.indexOf(topRisk)) topRisk = key;
+      }
+    }
+    highestRiskByDay[day] = topRisk;
+  } catch { highestRiskByDay[day] = null; }
+  maybeShowEnhAlert();
+}
+
+function maybeShowEnhAlert() {
+  if (_enhAlertShown) return;
+
+  // Only fire once both Day 1 and Day 2 cat layers have been checked
+  if (highestRiskByDay[1] === undefined || highestRiskByDay[2] === undefined) return;
+
+  // Find highest risk across Day 1 + Day 2
+  const days = [];
+  let topRisk = null;
+
+  for (const day of [1, 2]) {
+    const risk = highestRiskByDay[day];
+    if (risk && RISK_PRIORITY.includes(risk)) {
+      days.push({ day, risk, label: day === 1 ? 'Today' : 'Tomorrow' });
+      if (topRisk === null || RISK_PRIORITY.indexOf(risk) < RISK_PRIORITY.indexOf(topRisk)) {
+        topRisk = risk;
+      }
+    }
+  }
+
+  if (!topRisk) return; // nothing ENH or higher
+  _enhAlertShown = true;
+
+  const cfg = ENH_ALERT_CONTENT[topRisk];
+  const dayNames = days.map(d => d.label).join(' and ');
+
+  // Set level class on banner + box
+  const box    = document.getElementById('enh-alert-box');
+  const banner = document.getElementById('enh-alert-banner');
+  ['level-enh','level-mdt','level-high'].forEach(c => { box.classList.remove(c); banner.classList.remove(c); });
+  box.classList.add(cfg.level);
+  banner.classList.add(cfg.level);
+
+  document.getElementById('enh-alert-eyebrow').textContent = cfg.eyebrow;
+  document.getElementById('enh-alert-title').textContent   = cfg.title;
+  document.getElementById('enh-alert-summary').textContent = cfg.summary(dayNames);
+
+  // Build day chips
+  const chipsEl = document.getElementById('enh-alert-days');
+  chipsEl.innerHTML = days.map(d => `
+    <div class="enh-alert-day-chip">
+      <div class="chip-dot" style="background:${RISK_COLORS[d.risk]}"></div>
+      <span>${d.label} (Day ${d.day}) — ${d.risk === 'ENH' ? 'Enhanced' : d.risk === 'MDT' ? 'Moderate' : 'High'} Risk</span>
+    </div>`).join('');
+
+  document.getElementById('enh-alert-overlay').classList.add('show');
+}
+
+document.getElementById('enh-alert-continue').addEventListener('click', () => {
+  document.getElementById('enh-alert-overlay').classList.remove('show');
+});
+
 // ─────────────────────────────────────────────
 //  BOOT
 // ─────────────────────────────────────────────
@@ -1515,6 +1716,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   initMap();
   loadHazard(1, 'cat');
+  // Silently background-check Day 2 cat for ENH+ risk without rendering it
+  silentRiskCheck(2);
 
   // Restore search bar — or silently request location on first visit
   const _saved = (() => { try { const l=JSON.parse(localStorage.getItem('jweather_last_location')); return l?.lat ? l : null; } catch { return null; } })();
@@ -1584,5 +1787,25 @@ locBtn.addEventListener('click',()=>{if(!navigator.geolocation)return alert('Geo
     More
   </a>
 </nav>
+
+<!-- ENH+ Alert Overlay -->
+<div id="enh-alert-overlay">
+  <div class="enh-alert-box" id="enh-alert-box">
+    <div class="enh-alert-banner" id="enh-alert-banner">
+      <div class="enh-alert-icon">
+        <span class="material-symbols-rounded">warning</span>
+      </div>
+      <div class="enh-alert-heading">
+        <div class="enh-alert-eyebrow" id="enh-alert-eyebrow">Severe Weather Alert</div>
+        <div class="enh-alert-title" id="enh-alert-title">Enhanced Risk or Higher</div>
+      </div>
+    </div>
+    <div class="enh-alert-body">
+      <div class="enh-alert-days" id="enh-alert-days"></div>
+      <div class="enh-alert-summary" id="enh-alert-summary"></div>
+      <button class="enh-alert-continue" id="enh-alert-continue">View Outlook →</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
