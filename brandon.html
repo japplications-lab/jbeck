@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NUT BUTTER • Brandon Burzynski</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&family=Oswald:wght@700&family=DM+Sans:ital,wght@0,400;0,700;0,900;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --cream:        #f5edcf;
+            --cream-dark:   #e8d9a8;
+            --amber:        #c97a10;
+            --amber-light:  #f0a020;
+            --amber-pale:   #fde68a;
+            --green:        #1e5c22;
+            --green-mid:    #2d7a32;
+            --green-light:  #4caf52;
+            --purple:       #5b1fa0;
+            --purple-light: #8b5cf6;
+            --brown:        #2c1400;
+            --red:          #c0392b;
+            --white:        #fffdf4;
+        }
+
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--brown);
+            overflow-x: hidden;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E<i class="fas fa-circle" style="color:var(--amber-light)"></i>%3C/text%3E%3C/svg%3E") 16 16, auto;
+        }
+
+        /* grain overlay */
+        body::after {
+            content:'';
+            position:fixed; inset:0; pointer-events:none; z-index:9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: 0.4;
+        }
+
+        /* ─── NAV ─── */
+        nav {
+            position: fixed; top:0; width:100%; z-index:500;
+            background: var(--green);
+            border-bottom: 6px solid var(--amber);
+        }
+        .nav-ticker {
+            background: var(--amber);
+            color: var(--brown);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.95rem;
+            letter-spacing: 3px;
+            padding: 5px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .nav-ticker-inner {
+            display: inline-flex; gap: 4rem;
+            animation: ticker 20s linear infinite;
+        }
+        @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+        .nav-main {
+            max-width: 1300px; margin:0 auto;
+            padding: 0 2rem;
+            display: flex; align-items:center; justify-content:space-between;
+            height: 68px;
+        }
+        .nav-logo {
+            display: flex; align-items:center; gap:10px;
+        }
+        .nav-logo-nut {
+            width:46px; height:46px;
+            background: var(--amber-light);
+            border-radius:50%;
+            display:flex; align-items:center; justify-content:center;
+            font-size:1.5rem;
+            box-shadow: 3px 3px 0 var(--brown);
+            animation: spin-slow 8s linear infinite;
+        }
+        @keyframes spin-slow { to { transform: rotate(360deg); } }
+        .nav-wordmark {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.7rem;
+            color: var(--cream);
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 0 var(--brown);
+            line-height:1;
+        }
+        .nav-wordmark span { color: var(--amber-light); }
+
+        .nav-links {
+            display:flex; gap:1.8rem; list-style:none;
+        }
+        .nav-links a {
+            font-weight:900; font-size:0.8rem; letter-spacing:2px;
+            text-transform:uppercase; color:var(--cream);
+            text-decoration:none; pointer-events:none; cursor:default;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--amber-light); }
+        .nav-end { font-size:1.5rem; animation: bounce 1s ease-in-out infinite alternate; }
+        @keyframes bounce { from{transform:translateY(0)} to{transform:translateY(-6px)} }
+
+        /* ─── HERO ─── */
+        .hero {
+            min-height: 100vh;
+            padding-top: 110px;
+            background: var(--green);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* diagonal split */
+        .hero::before {
+            content:'';
+            position:absolute;
+            bottom:-2px; left:0; right:0;
+            height: 200px;
+            background: var(--cream);
+            clip-path: polygon(0 100%, 100% 0, 100% 100%);
+            z-index:2;
+        }
+
+        /* big watermark */
+        .hero-watermark {
+            position:absolute; top:50%; left:50%;
+            transform: translate(-50%,-50%) rotate(-15deg);
+            font-family:'Bebas Neue', sans-serif;
+            font-size: 22vw;
+            color: rgba(255,255,255,0.04);
+            white-space:nowrap; pointer-events:none;
+            letter-spacing:10px; z-index:0;
+        }
+
+        /* floating nuts bg */
+        .hero-nuts {
+            position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:0;
+        }
+        .nut-float {
+            position:absolute;
+            font-size:2.5rem;
+            animation: floatUp linear infinite;
+            opacity:0.15;
+        }
+        @keyframes floatUp {
+            0%   { transform: translateY(110vh) rotate(0deg); }
+            100% { transform: translateY(-10vh) rotate(360deg); }
+        }
+
+        .hero-inner {
+            position:relative; z-index:3;
+            max-width:1300px; margin:0 auto;
+            padding: 3rem 3rem 8rem;
+            display:grid; grid-template-columns:1fr 1fr;
+            gap:4rem; align-items:center;
+        }
+
+        .hero-left {}
+
+        .hero-stamp {
+            display:inline-block;
+            background: var(--amber-light);
+            color: var(--brown);
+            font-family:'Bebas Neue', sans-serif;
+            font-size:1rem; letter-spacing:4px;
+            padding:8px 20px; border-radius:4px;
+            transform:rotate(-2deg);
+            box-shadow: 4px 4px 0 var(--brown);
+            margin-bottom:1.5rem;
+            animation: wiggle 3s ease-in-out infinite;
+        }
+        @keyframes wiggle {
+            0%,100% { transform: rotate(-2deg); }
+            50% { transform: rotate(1.5deg); }
+        }
+
+        .hero-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(5rem, 11vw, 9.5rem);
+            line-height: 0.88;
+            color: var(--cream);
+            letter-spacing: 1px;
+            text-shadow:
+                6px 6px 0 var(--brown),
+                -1px -1px 0 rgba(0,0,0,0.4);
+            margin-bottom: 0.4rem;
+        }
+        .hero-title .line2 {
+            color: var(--amber-light);
+            display:block;
+            -webkit-text-stroke: 2px var(--brown);
+        }
+
+        .hero-subtitle {
+            font-family: 'Permanent Marker', cursive;
+            font-size:1.35rem;
+            color: var(--cream);
+            opacity:0.9;
+            line-height:1.55;
+            margin-bottom:2rem;
+            max-width:420px;
+        }
+        .hero-subtitle em {
+            font-style:normal;
+            background: var(--amber-light);
+            color: var(--brown);
+            padding:2px 8px;
+            border-radius:3px;
+            white-space:nowrap;
+        }
+
+        .hero-badges {
+            display:flex; flex-wrap:wrap; gap:0.8rem;
+            margin-bottom:2.5rem;
+        }
+        .badge {
+            background: rgba(255,255,255,0.12);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: var(--cream);
+            font-weight:900; font-size:0.75rem; letter-spacing:2px;
+            text-transform:uppercase;
+            padding:6px 14px; border-radius:100px;
+        }
+
+        .hero-btn {
+            display:inline-flex; align-items:center; gap:14px;
+            background: var(--amber-light);
+            color: var(--brown);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size:2rem; letter-spacing:3px;
+            padding:18px 50px; border-radius:6px; border:none;
+            cursor:pointer;
+            box-shadow: 6px 6px 0 var(--brown);
+            transition: transform 0.12s, box-shadow 0.12s;
+            position:relative; overflow:hidden;
+        }
+        .hero-btn::after {
+            content:'';
+            position:absolute; inset:0;
+            background:linear-gradient(135deg, rgba(255,255,255,0.25) 0%, transparent 60%);
+            pointer-events:none;
+        }
+        .hero-btn:hover { transform:translate(-3px,-3px); box-shadow:9px 9px 0 var(--brown); }
+        .hero-btn:active { transform:translate(2px,2px); box-shadow:3px 3px 0 var(--brown); }
+
+        .hero-right {
+            display:flex; justify-content:center; align-items:flex-end;
+            position:relative;
+        }
+        .hero-img-frame {
+            position:relative;
+        }
+        .hero-img-frame::before {
+            content:'';
+            position:absolute; inset:-12px;
+            border: 4px dashed rgba(255,255,255,0.2);
+            border-radius:28px;
+            animation: spin-slow 20s linear infinite;
+        }
+        .hero-img {
+            width:100%; max-width:460px;
+            border-radius:20px;
+            border:8px solid var(--cream);
+            box-shadow: 12px 12px 0 var(--brown);
+            animation: hero-rock 3s ease-in-out infinite;
+            display:block;
+        }
+        @keyframes hero-rock {
+            0%,100% { transform:rotate(-4deg) scale(1); }
+            50% { transform:rotate(4deg) scale(1.02); }
+        }
+
+        .hero-callout {
+            position:absolute; top:-20px; right:-20px;
+            width:110px; height:110px;
+            background: var(--red);
+            border-radius:50%;
+            display:flex; flex-direction:column; align-items:center; justify-content:center;
+            border:4px solid var(--cream);
+            box-shadow: 4px 4px 0 var(--brown);
+            animation: callout-pop 1.5s ease-in-out infinite alternate;
+            z-index:5;
+        }
+        @keyframes callout-pop {
+            from { transform:scale(1) rotate(-5deg); }
+            to   { transform:scale(1.1) rotate(5deg); }
+        }
+        .callout-top { font-family:'Bebas Neue',sans-serif; font-size:0.75rem; color:var(--cream); letter-spacing:2px; }
+        .callout-mid { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; color:var(--amber-light); line-height:1; }
+        .callout-bot { font-family:'Bebas Neue',sans-serif; font-size:0.65rem; color:var(--cream); letter-spacing:1px; }
+
+        /* ─── RIBBON ─── */
+        .ribbon {
+            background: var(--purple);
+            border-top:5px solid var(--amber); border-bottom:5px solid var(--amber);
+            padding:14px 0;
+            overflow:hidden; white-space:nowrap;
+        }
+        .ribbon-inner {
+            display:inline-flex; gap:3rem;
+            font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:5px;
+            color:var(--cream);
+            animation: ticker 25s linear infinite;
+        }
+
+        /* ─── REVIEWS STRIP ─── */
+        .reviews-strip {
+            background: var(--amber-pale);
+            border-bottom:4px solid var(--amber);
+            padding:2.5rem 2rem;
+            display:flex; justify-content:center; gap:4rem; flex-wrap:wrap;
+        }
+        .review-card {
+            max-width:260px; text-align:center;
+        }
+        .review-stars { font-size:1.4rem; margin-bottom:0.4rem; }
+        .review-text {
+            font-family:'Permanent Marker',cursive;
+            font-size:1rem; color:var(--brown); line-height:1.5;
+            margin-bottom:0.5rem;
+        }
+        .review-author {
+            font-size:0.75rem; font-weight:900; letter-spacing:2px;
+            text-transform:uppercase; color:var(--green);
+        }
+
+        /* ─── MEET BRANDON ─── */
+        .section-brandon {
+            background: var(--white);
+            padding:8rem 2rem 6rem;
+            position:relative; overflow:hidden;
+            border-bottom:6px solid var(--green);
+        }
+        .section-brandon::before {
+            content:'THE NUT LORD';
+            position:absolute; top:50%; left:-2rem;
+            transform:translateY(-50%) rotate(-90deg);
+            font-family:'Bebas Neue',sans-serif;
+            font-size:8rem; letter-spacing:15px;
+            color:var(--green); opacity:0.05;
+            white-space:nowrap; pointer-events:none;
+        }
+
+        .brandon-inner {
+            max-width:1100px; margin:0 auto;
+            display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center;
+        }
+
+        .section-tag {
+            display:inline-block;
+            font-weight:900; font-size:0.75rem; letter-spacing:4px;
+            text-transform:uppercase; color:var(--white);
+            background:var(--green);
+            padding:6px 16px; border-radius:4px;
+            margin-bottom:1.2rem;
+        }
+        .section-heading {
+            font-family:'Oswald',sans-serif;
+            font-size:clamp(2.5rem,5vw,4.2rem);
+            color:var(--green); line-height:1;
+            text-shadow:3px 3px 0 rgba(30,92,34,0.15);
+            margin-bottom:1.5rem;
+        }
+        .section-heading span { color:var(--amber); }
+
+        .brandon-quote-block {
+            background: var(--cream);
+            border:3px solid var(--cream-dark);
+            border-left:8px solid var(--amber-light);
+            border-radius:0 12px 12px 0;
+            padding:2rem 2rem 1.5rem;
+            box-shadow:5px 5px 0 var(--cream-dark);
+            margin-bottom:1.5rem;
+        }
+        .brandon-quote-text {
+            font-family:'Permanent Marker',cursive;
+            font-size:1.25rem; line-height:1.65; color:var(--brown);
+            margin-bottom:1rem;
+        }
+        .brandon-quote-attr {
+            font-weight:900; font-size:0.85rem; letter-spacing:2px;
+            color:var(--purple); text-transform:uppercase;
+        }
+
+        .brandon-facts {
+            display:flex; flex-direction:column; gap:0.8rem;
+        }
+        .fact {
+            display:flex; align-items:center; gap:1rem;
+            background:var(--green); color:var(--cream);
+            padding:12px 20px; border-radius:8px;
+            font-weight:700; font-size:0.95rem;
+            box-shadow:3px 3px 0 var(--brown);
+            transition:transform 0.15s;
+        }
+        .fact:hover { transform:translateX(6px); }
+        .fact-icon { font-size:1.5rem; flex-shrink:0; }
+
+        .brandon-img-wrap {
+            position:relative; display:flex; justify-content:center;
+        }
+        .brandon-img-wrap::before {
+            content:'';
+            position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
+            width:85%; height:85%;
+            background:var(--amber-pale);
+            border-radius:20px;
+            border:4px solid var(--amber);
+        }
+        .brandon-img {
+            position:relative; z-index:2;
+            width:100%; max-width:420px;
+            border-radius:20px;
+            border:6px solid var(--white);
+            box-shadow:10px 10px 0 var(--green);
+            display:block;
+        }
+        .brandon-sash {
+            position:absolute; bottom:30px; left:50%; transform:translateX(-50%);
+            z-index:3;
+            background:var(--purple);
+            color:var(--cream);
+            font-family:'Bebas Neue',sans-serif;
+            font-size:1.1rem; letter-spacing:4px;
+            padding:8px 30px; border-radius:100px;
+            border:3px solid var(--cream);
+            box-shadow:4px 4px 0 var(--brown);
+            white-space:nowrap;
+        }
+
+        /* ─── SOUP SECTION ─── */
+        .section-soup {
+            background: var(--green);
+            padding:8rem 2rem;
+            position:relative; overflow:hidden;
+        }
+        .section-soup::before {
+            content:'<i class="fas fa-utensils" style="font-size:0.9em"></i>';
+            position:absolute; top:50%; right:-2rem;
+            transform:translateY(-50%);
+            font-size:25vw; opacity:0.06;
+            pointer-events:none;
+        }
+
+        .soup-inner {
+            max-width:1100px; margin:0 auto;
+            display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center;
+        }
+
+        .soup-coming {
+            display:inline-block;
+            background:var(--red);
+            color:var(--cream);
+            font-family:'Bebas Neue',sans-serif;
+            font-size:1.1rem; letter-spacing:5px;
+            padding:9px 28px; border-radius:4px;
+            box-shadow:4px 4px 0 var(--brown);
+            transform:rotate(-2deg); margin-bottom:1.5rem;
+        }
+
+        .soup-title-pre {
+            font-family:'Bebas Neue',sans-serif;
+            font-size:2rem; letter-spacing:4px; color:var(--cream); opacity:0.7;
+        }
+        .soup-title-main {
+            font-family:'Oswald',sans-serif;
+            font-size:clamp(3rem,7vw,5.5rem);
+            line-height:0.95;
+            color:var(--amber-light);
+            text-shadow:5px 5px 0 var(--brown);
+            margin-bottom:1.5rem;
+        }
+        .soup-desc {
+            font-size:1.15rem; font-weight:700; line-height:1.7;
+            color:var(--cream); opacity:0.88; margin-bottom:2rem;
+        }
+        .soup-desc em {
+            font-style:normal; color:var(--amber-light); font-weight:900;
+        }
+
+        .soup-pills {
+            display:flex; flex-wrap:wrap; gap:0.75rem; margin-bottom:2.5rem;
+        }
+        .pill {
+            background:rgba(255,255,255,0.12);
+            border:2px solid rgba(255,255,255,0.25);
+            color:var(--cream);
+            font-weight:900; font-size:0.78rem; letter-spacing:2px;
+            text-transform:uppercase;
+            padding:7px 16px; border-radius:100px;
+        }
+
+        .soup-btn {
+            display:inline-flex; align-items:center; gap:12px;
+            background:var(--cream);
+            color:var(--green);
+            font-family:'Bebas Neue',sans-serif;
+            font-size:1.8rem; letter-spacing:3px;
+            padding:16px 44px; border-radius:6px; border:none;
+            cursor:pointer;
+            box-shadow:6px 6px 0 var(--brown);
+            transition:transform 0.12s, box-shadow 0.12s;
+        }
+        .soup-btn:hover { transform:translate(-3px,-3px); box-shadow:9px 9px 0 var(--brown); }
+        .soup-btn:active { transform:translate(2px,2px); box-shadow:3px 3px 0 var(--brown); }
+
+        .soup-img-wrap { display:flex; justify-content:center; position:relative; }
+        .soup-img {
+            width:100%; max-width:440px;
+            border-radius:20px;
+            border:8px solid var(--cream);
+            box-shadow:12px 12px 0 var(--brown);
+            animation:float 3.5s ease-in-out infinite;
+            display:block;
+        }
+        @keyframes float {
+            0%,100%{ transform:translateY(0) rotate(-3deg); }
+            50%{ transform:translateY(-22px) rotate(3deg); }
+        }
+        .soup-starburst {
+            position:absolute; top:-15px; left:10px;
+            width:90px; height:90px; z-index:5;
+            background:var(--amber-light);
+            clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+            display:flex; align-items:center; justify-content:center;
+            animation:callout-pop 1.8s ease-in-out infinite alternate;
+        }
+        .starburst-text {
+            font-family:'Bebas Neue',sans-serif;
+            font-size:0.65rem; letter-spacing:1px;
+            color:var(--brown); text-align:center; line-height:1.2;
+        }
+
+        /* ─── TESTIMONIALS ─── */
+        .section-testimonials {
+            background:var(--cream-dark);
+            padding:6rem 2rem;
+            border-top:5px solid var(--amber);
+            border-bottom:5px solid var(--amber);
+        }
+        .testimonials-title {
+            font-family:'Bebas Neue',sans-serif;
+            font-size:clamp(2.5rem,5vw,4rem);
+            color:var(--brown); letter-spacing:4px; text-align:center;
+            margin-bottom:0.5rem;
+        }
+        .testimonials-sub {
+            text-align:center; font-size:0.9rem; font-weight:700;
+            color:var(--amber); letter-spacing:2px; text-transform:uppercase;
+            margin-bottom:3.5rem;
+        }
+        .testimonials-grid {
+            max-width:1100px; margin:0 auto;
+            display:grid; grid-template-columns:repeat(3,1fr); gap:2rem;
+        }
+        .tcard {
+            background:var(--white);
+            border:3px solid var(--cream-dark);
+            border-radius:16px;
+            padding:2rem 1.8rem;
+            box-shadow:6px 6px 0 var(--cream-dark);
+            transition:transform 0.2s, box-shadow 0.2s;
+            position:relative;
+        }
+        .tcard:hover { transform:translate(-4px,-4px); box-shadow:10px 10px 0 var(--cream-dark); }
+        .tcard-stars { font-size:1.3rem; margin-bottom:0.8rem; }
+        .tcard-quote {
+            font-family:'Permanent Marker',cursive;
+            font-size:1.05rem; line-height:1.6; color:var(--brown);
+            margin-bottom:1.2rem;
+        }
+        .tcard-divider {
+            height:3px; background:var(--amber-pale);
+            border-radius:2px; margin-bottom:1rem;
+        }
+        .tcard-author { font-weight:900; font-size:0.78rem; letter-spacing:2px; text-transform:uppercase; color:var(--green); }
+        .tcard-location { font-size:0.72rem; color:var(--brown); opacity:0.5; letter-spacing:1px; }
+        .tcard-verified {
+            position:absolute; top:12px; right:12px;
+            background:var(--green); color:var(--cream);
+            font-size:0.65rem; font-weight:900; letter-spacing:1px;
+            padding:3px 8px; border-radius:100px;
+        }
+
+        /* ─── CTA ─── */
+        .section-cta {
+            background: var(--cream);
+            padding:8rem 2rem;
+            text-align:center;
+            position:relative; overflow:hidden;
+        }
+        .cta-bg-text {
+            position:absolute; top:50%; left:50%;
+            transform:translate(-50%,-50%);
+            font-family:'Bebas Neue',sans-serif;
+            font-size:20vw; letter-spacing:10px;
+            color:var(--green); opacity:0.04;
+            white-space:nowrap; pointer-events:none;
+        }
+        .cta-eyebrow {
+            font-weight:900; font-size:0.8rem; letter-spacing:4px;
+            text-transform:uppercase; color:var(--amber);
+            margin-bottom:1rem; position:relative;
+        }
+        .cta-title {
+            font-family:'Oswald',sans-serif;
+            font-size:clamp(2.8rem,7vw,5.5rem);
+            color:var(--green); line-height:1.05;
+            text-shadow:4px 4px 0 rgba(30,92,34,0.15);
+            margin-bottom:0.5rem; position:relative;
+        }
+        .cta-title span { color:var(--amber); }
+        .cta-sub {
+            font-size:1.2rem; font-weight:700;
+            color:var(--brown); opacity:0.6;
+            margin-bottom:3rem; position:relative;
+        }
+        .cta-btn {
+            display:inline-flex; align-items:center; gap:16px;
+            background:var(--green);
+            color:var(--cream);
+            font-family:'Bebas Neue',sans-serif;
+            font-size:2.4rem; letter-spacing:4px;
+            padding:22px 64px; border-radius:8px; border:none;
+            cursor:pointer;
+            box-shadow:8px 8px 0 var(--brown);
+            transition:transform 0.12s, box-shadow 0.12s;
+            position:relative; z-index:1;
+        }
+        .cta-btn:hover { transform:translate(-4px,-4px); box-shadow:12px 12px 0 var(--brown); }
+        .cta-btn:active { transform:translate(3px,3px); box-shadow:4px 4px 0 var(--brown); }
+
+        .cta-fine {
+            margin-top:2rem; font-size:0.72rem; opacity:0.4;
+            font-weight:700; letter-spacing:1px; text-transform:uppercase;
+            position:relative;
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background:var(--brown);
+            padding:3rem 2rem;
+            text-align:center;
+        }
+        .footer-logo {
+            font-family:'Oswald',sans-serif;
+            font-size:2rem; color:var(--cream);
+            letter-spacing:2px; margin-bottom:0.5rem;
+        }
+        .footer-logo span { color:var(--amber-light); }
+        .footer-copy {
+            color:rgba(245,237,207,0.4);
+            font-size:0.8rem; font-weight:700; letter-spacing:1px;
+            line-height:1.8;
+        }
+        .footer-copy strong { color:var(--amber-light); }
+
+        /* ─── MODAL ─── */
+        .modal-overlay {
+            display:none; position:fixed; inset:0; z-index:1000;
+            background:rgba(0,0,0,0.7); backdrop-filter:blur(6px);
+            align-items:center; justify-content:center;
+        }
+        .modal-overlay.open { display:flex; }
+        .modal {
+            background:var(--cream);
+            border:6px solid var(--amber);
+            border-radius:20px;
+            padding:3rem 3.5rem;
+            text-align:center;
+            max-width:440px; width:90%;
+            box-shadow:12px 12px 0 var(--brown);
+            animation:modal-in 0.35s cubic-bezier(0.34,1.56,0.64,1);
+        }
+        @keyframes modal-in {
+            from { transform:scale(0.5) rotate(-10deg); opacity:0; }
+            to   { transform:scale(1) rotate(0deg); opacity:1; }
+        }
+        .modal-emoji { font-size:4rem; margin-bottom:1rem; display:block; }
+        .modal-title {
+            font-family:'Bebas Neue',sans-serif;
+            font-size:2.5rem; letter-spacing:3px; color:var(--green);
+            margin-bottom:0.5rem;
+        }
+        .modal-msg {
+            font-family:'Permanent Marker',cursive;
+            font-size:1.1rem; line-height:1.6; color:var(--brown);
+            margin-bottom:2rem;
+        }
+        .modal-close {
+            background:var(--green); color:var(--cream);
+            font-family:'Bebas Neue',sans-serif;
+            font-size:1.5rem; letter-spacing:3px;
+            padding:12px 40px; border-radius:6px; border:none;
+            cursor:pointer; box-shadow:4px 4px 0 var(--brown);
+            transition:transform 0.1s, box-shadow 0.1s;
+        }
+        .modal-close:hover { transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--brown); }
+
+        /* ─── RESPONSIVE ─── */
+        @media(max-width:900px){
+            .hero-inner { grid-template-columns:1fr; padding-bottom:6rem; text-align:center; }
+            .hero-subtitle { max-width:100%; }
+            .hero-badges { justify-content:center; }
+            .hero-right { padding-top:2rem; }
+            .hero-callout { right:10px; }
+            .brandon-inner, .soup-inner, .testimonials-grid { grid-template-columns:1fr; }
+            .brandon-img-wrap { order:-1; }
+            .soup-img-wrap { order:-1; }
+            .nav-links { display:none; }
+            .reviews-strip { gap:2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-ticker">
+        <div class="nav-ticker-inner">
+            <span><i class="fas fa-circle" style="color:var(--amber-light)"></i> THICK &amp; CREAMY</span><span>•</span>
+            <span><i class="fas fa-tint"></i> GOES DOWN SMOOTH</span><span>•</span>
+            <span><i class="fas fa-trophy"></i> BRANDON APPROVED</span><span>•</span>
+            <span><i class="fas fa-heart"></i> ALL NATURAL NUTS</span><span>•</span>
+            <span><i class="fas fa-fire"></i> BALL SACK SOUP COMING SOON</span><span>•</span>
+            <span><i class="fas fa-circle" style="color:var(--amber-light)"></i> THICK &amp; CREAMY</span><span>•</span>
+            <span><i class="fas fa-tint"></i> GOES DOWN SMOOTH</span><span>•</span>
+            <span><i class="fas fa-trophy"></i> BRANDON APPROVED</span><span>•</span>
+            <span><i class="fas fa-heart"></i> ALL NATURAL NUTS</span><span>•</span>
+            <span><i class="fas fa-fire"></i> BALL SACK SOUP COMING SOON</span><span>•</span>
+        </div>
+    </div>
+    <div class="nav-main">
+        <div class="nav-logo">
+            <div class="nav-logo-nut"><i class="fas fa-circle" style="color:var(--amber-light)"></i></div>
+            <div class="nav-wordmark">NUT <span>BUTTER</span></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">Spread It</a></li>
+            <li><a href="#">Flavors</a></li>
+            <li><a href="#">Meet Brandon</a></li>
+            <li><a href="#">Soup's Coming</a></li>
+            <li><a href="#">Get Creamy</a></li>
+        </ul>
+        <div class="nav-end"><i class="fas fa-pepper-hot" style="color:var(--amber-light)"></i><i class="fas fa-tint" style="color:#60a5fa"></i></div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-watermark">NUT BUTTER</div>
+    <div class="hero-nuts" id="heroNuts"></div>
+
+    <div class="hero-inner">
+        <div class="hero-left">
+            <div class="hero-stamp"><i class="fas fa-bolt"></i> Brandon Burzynski Presents</div>
+            <h1 class="hero-title">
+                NUT<br><span class="line2">BUTTER</span>
+            </h1>
+            <p class="hero-subtitle">
+                The thick, creamy, all-natural spread your life's been missing.<br>
+                <em>Goes down smooth. Every. Single. Time.</em>
+            </p>
+            <div class="hero-badges">
+                <span class="badge"><i class="fas fa-circle" style="color:var(--amber-light)"></i> 100% Natural</span>
+                <span class="badge"><i class="fas fa-dumbbell"></i> 30g Protein</span>
+                <span class="badge"><i class="fas fa-ban"></i> No Fillers</span>
+                <span class="badge"><i class="fas fa-check-circle"></i> Brandon Tested</span>
+            </div>
+            <button class="hero-btn" onclick="openModal()">
+                <i class="fas fa-bolt"></i> SPREAD IT NOW
+            </button>
+        </div>
+        <div class="hero-right">
+            <div class="hero-img-frame">
+                <img src="Brandon.png" alt="Brandon Burzynski holding Nut Butter" class="hero-img">
+                <div class="hero-callout">
+                    <span class="callout-top">ONLY</span>
+                    <span class="callout-mid">$19.99</span>
+                    <span class="callout-bot">per jar</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- RIBBON -->
+<div class="ribbon">
+    <div class="ribbon-inner">
+        <span><i class="fas fa-circle" style="color:var(--amber-light)"></i> NUT BUTTER</span><span>•</span>
+        <span><i class="fas fa-tint"></i> EXTRA THICK</span><span>•</span>
+        <span><i class="fas fa-fire"></i> ALL NATURAL</span><span>•</span>
+        <span><i class="fas fa-trophy"></i> AWARD WINNING*</span><span>•</span>
+        <span><i class="fas fa-angry"></i> NOT YOUR GRANDMA'S</span><span>•</span>
+        <span><i class="fas fa-utensils" style="font-size:0.9em"></i> BALL SACK SOUP SOON</span><span>•</span>
+        <span><i class="fas fa-circle" style="color:var(--amber-light)"></i> NUT BUTTER</span><span>•</span>
+        <span><i class="fas fa-tint"></i> EXTRA THICK</span><span>•</span>
+        <span><i class="fas fa-fire"></i> ALL NATURAL</span><span>•</span>
+        <span><i class="fas fa-trophy"></i> AWARD WINNING*</span><span>•</span>
+        <span><i class="fas fa-angry"></i> NOT YOUR GRANDMA'S</span><span>•</span>
+        <span><i class="fas fa-utensils" style="font-size:0.9em"></i> BALL SACK SOUP SOON</span><span>•</span>
+    </div>
+</div>
+
+<!-- REVIEW STRIP -->
+<div class="reviews-strip">
+    <div class="review-card">
+        <div class="review-stars"><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i></div>
+        <div class="review-text">"I put it on everything. My toast. My crackers. My regrets."</div>
+        <div class="review-author">— Chad T., Toledo OH</div>
+    </div>
+    <div class="review-card">
+        <div class="review-stars"><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i></div>
+        <div class="review-text">"Thick is an understatement. My spoon stood up straight."</div>
+        <div class="review-author">— Melissa K., Verified Spreader</div>
+    </div>
+    <div class="review-card">
+        <div class="review-stars"><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i></div>
+        <div class="review-text">"I don't even like peanut butter. I like THIS peanut butter."</div>
+        <div class="review-author">— Dave's Mom, Instagram</div>
+    </div>
+</div>
+
+<!-- MEET BRANDON -->
+<section class="section-brandon" id="brandon">
+    <div class="brandon-inner">
+        <div>
+            <div class="section-tag">The Man. The Myth. The Nut Lord.</div>
+            <h2 class="section-heading">Meet <span>Brandon</span><br>Burzynski</h2>
+            <div class="brandon-quote-block">
+                <p class="brandon-quote-text">
+                    "I spent years perfecting my recipe. Years. Do you know what that does to a man? 
+                    This ain't your grandma's peanut butter. This is the good stuff. 
+                    The stuff grandma WISHED she could make."
+                </p>
+                <p class="brandon-quote-attr">— Brandon "The Nut Lord" Burzynski</p>
+            </div>
+            <div class="brandon-facts">
+                <div class="fact"><span class="fact-icon"><i class="fas fa-dumbbell"></i></span> Has never skipped a spreading day</div>
+                <div class="fact"><span class="fact-icon"><i class="fas fa-circle" style="color:var(--amber-light)"></i></span> Personally approves every single jar</div>
+                <div class="fact"><span class="fact-icon"><i class="fas fa-flask"></i></span> Self-proclaimed nut science expert</div>
+                <div class="fact"><span class="fact-icon"><i class="fas fa-crown"></i></span> 3-time regional Nut Butter Champion*</div>
+            </div>
+        </div>
+        <div class="brandon-img-wrap">
+            <img src="Brandon.png" alt="Brandon Burzynski" class="brandon-img">
+            <div class="brandon-sash">THE NUT LORD <i class="fas fa-circle" style="color:var(--amber-light)"></i></div>
+        </div>
+    </div>
+</section>
+
+<!-- SOUP SECTION -->
+<section class="section-soup" id="soup">
+    <div class="soup-inner">
+        <div>
+            <div class="soup-coming"><i class="fas fa-fire"></i> COMING SOON <i class="fas fa-fire"></i></div>
+            <div class="soup-title-pre">Brandon Burzynski's</div>
+            <div class="soup-title-main">Ball Sack<br>Soup&trade;</div>
+            <p class="soup-desc">
+                The <em>ultimate</em> thick &amp; creamy experience is leveling up. 
+                Brandon spent another several years in the lab — this time with a pot, 
+                some questionable ingredients, and <em>zero regrets.</em><br><br>
+                Extra thick load. 100% natural nuts. Slow simmered.
+            </p>
+            <div class="soup-pills">
+                <span class="pill"><i class="fas fa-utensils" style="font-size:0.9em"></i> Slow Simmered</span>
+                <span class="pill">100% Natural</span>
+                <span class="pill"><i class="fas fa-fire"></i> Extra Thick</span>
+                <span class="pill"><i class="fas fa-dumbbell"></i> High Protein</span>
+            </div>
+            <button class="soup-btn" onclick="openModal()">
+                <i class="fas fa-envelope"></i> Notify Me
+            </button>
+        </div>
+        <div class="soup-img-wrap">
+            <div class="soup-starburst">
+                <span class="starburst-text">NEW<br>FLAVOR</span>
+            </div>
+            <img src="Brandon2.png" alt="Brandon with Ball Sack Soup" class="soup-img">
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section-testimonials">
+    <h2 class="testimonials-title">WHAT THE PEOPLE ARE SAYING</h2>
+    <p class="testimonials-sub">* Real reviews from definitely real people</p>
+    <div class="testimonials-grid">
+        <div class="tcard">
+            <span class="tcard-verified"><i class="fas fa-check"></i> VERIFIED SPREADER</span>
+            <div class="tcard-stars"><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i></div>
+            <p class="tcard-quote">"I sent a jar to my ex. Haven't heard back. 10/10 would recommend."</p>
+            <div class="tcard-divider"></div>
+            <div class="tcard-author">BrandonFan2024</div>
+            <div class="tcard-location">Kansas City, MO</div>
+        </div>
+        <div class="tcard">
+            <span class="tcard-verified"><i class="fas fa-check"></i> VERIFIED SPREADER</span>
+            <div class="tcard-stars"><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i></div>
+            <p class="tcard-quote">"My doctor told me to cut back. I told my doctor about Brandon. He ordered a case."</p>
+            <div class="tcard-divider"></div>
+            <div class="tcard-author">NutEnthusiast99</div>
+            <div class="tcard-location">Somewhere, USA</div>
+        </div>
+        <div class="tcard">
+            <span class="tcard-verified"><i class="fas fa-check"></i> VERIFIED SPREADER</span>
+            <div class="tcard-stars"><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i><i class="fas fa-star" style="color:var(--amber-light)"></i></div>
+            <p class="tcard-quote">"I've tried 47 nut butters. This one made me cry in the best possible way."</p>
+            <div class="tcard-divider"></div>
+            <div class="tcard-author">CreamyConnoisseur</div>
+            <div class="tcard-location">Portland, OR (obviously)</div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="section-cta" id="buy">
+    <div class="cta-bg-text">GET NUTTY</div>
+    <p class="cta-eyebrow">Don't let your toast suffer</p>
+    <h2 class="cta-title">Ready to Get Your<br><span>Nuts Buttered?</span></h2>
+    <p class="cta-sub">Limited supply. Unlimited thickness. No refunds on regrets.</p>
+    <button class="cta-btn" onclick="openModal()">
+        <i class="fas fa-shopping-cart"></i> PRE-ORDER NOW
+    </button>
+    <p class="cta-fine">* Award claim unverified by any governing body. Brandon verified it himself. Close enough.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-logo">NUT <span>BUTTER</span></div>
+    <div class="footer-copy">
+        © 2026 <strong>Brandon Burzynski's Nut Butter LLC</strong> &nbsp;•&nbsp; Pure comedy gold &nbsp;•&nbsp; Not real food<br>
+        *No nuts were harmed in the making of this website &nbsp;•&nbsp; Ball Sack Soup&trade; pending FDA review (they were confused too)
+    </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+    <div class="modal" id="modalBox">
+        <span class="modal-emoji" id="modalEmoji"><i class="fas fa-circle" style="color:var(--amber-light)"></i></span>
+        <div class="modal-title" id="modalTitle">ORDER PLACED!</div>
+        <p class="modal-msg" id="modalMsg">Your thick, creamy delivery is incoming.</p>
+        <button class="modal-close" onclick="closeModal()">CLOSE</button>
+    </div>
+</div>
+
+<script>
+    // Floating nuts in hero
+    const nuts = ['<i class="fas fa-circle" style="color:var(--amber-light)"></i>','<i class="fas fa-circle" style="color:var(--amber-light)"></i>','<i class="fas fa-circle" style="color:var(--amber-light)"></i>','<i class="fas fa-tint"></i>','<i class="fas fa-heart"></i>','<i class="fas fa-circle" style="color:#a0522d"></i>','<i class="fas fa-circle" style="color:var(--amber-light)"></i>'];
+    const container = document.getElementById('heroNuts');
+    for(let i=0;i<18;i++){
+        const el = document.createElement('div');
+        el.className = 'nut-float';
+        el.innerHTML = '<i class="fas fa-circle" style="color:rgba(255,255,255,0.3)"></i>';
+        el.style.left = Math.random()*100+'%';
+        el.style.fontSize = (1.5+Math.random()*2)+'rem';
+        el.style.animationDuration = (8+Math.random()*12)+'s';
+        el.style.animationDelay = (-Math.random()*15)+'s';
+        container.appendChild(el);
+    }
+
+    const orders = [
+        { e:'<i class="fas fa-tint"></i>', t:'ORDER PLACED!', m:'Thick, creamy delivery incoming! Brandon is personally hand-packing your jar right now.' },
+        { e:'<i class="fas fa-circle" style="color:var(--amber-light)"></i>', t:'SPREAD INCOMING!', m:'Brandon says thanks for spreading the love. He literally said this. We have him on tape.' },
+        { e:'<i class="fas fa-box"></i>', t:'PRE-ORDERED!', m:'Ball Sack Soup (Nut Butter Edition) pre-ordered. Your life will never be the same.' },
+        { e:'<i class="fas fa-trophy"></i>', t:'WELCOME, NUT LORD!', m:'You are now part of the most exclusive club in the world. Brandon acknowledges your existence.' },
+        { e:'<i class="fas fa-rocket"></i>', t:'NUT LAUNCH CONFIRMED', m:"Your nuts are en route. Brandon's tracking them personally. Don't ask how." },
+    ];
+
+    function openModal(){
+        const o = orders[Math.floor(Math.random()*orders.length)];
+        document.getElementById('modalEmoji').innerHTML = o.e;
+        document.getElementById('modalTitle').textContent = o.t;
+        document.getElementById('modalMsg').textContent = o.m;
+        document.getElementById('modal').classList.add('open');
+    }
+    function closeModal(){ document.getElementById('modal').classList.remove('open'); }
+    function closeModalOutside(e){ if(e.target === document.getElementById('modal')) closeModal(); }
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+</script>
+</body>
+</html>
